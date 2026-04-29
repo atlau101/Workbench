@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@theme {
+  /* --- Brand colors (Stitch: Supportive Workspace) --- */
+  /* Brand overrides: these are the visible action colors */
+  --color-primary: #0d9488;
+  --color-primary-container: #008378;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #f4fffc;
+  --color-inverse-primary: #6bd8cb;
+
+  --color-amber: #f59e0b;
+  --color-amber-on: #ffffff;
+
+  /* M3 secondary tokens (used for surface accents) */
+  --color-secondary: #855300;
+  --color-secondary-container: #fea619;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #684000;
+
+  --color-tertiary: #924628;
+  --color-tertiary-container: #b05e3d;
+
+  --color-surface: #f5faf8;
+  --color-surface-dim: #d6dbd9;
+  --color-surface-bright: #f5faf8;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f0f5f2;
+  --color-surface-container: #eaefed;
+  --color-surface-container-high: #e4e9e7;
+  --color-surface-container-highest: #dee4e1;
+  --color-on-surface: #171d1c;
+  --color-on-surface-variant: #3d4947;
+  --color-outline: #6d7a77;
+  --color-outline-variant: #bcc9c6;
+
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  --color-on-error: #ffffff;
+  --color-on-error-container: #93000a;
+
+  --color-background: #f5faf8;
+  --color-on-background: #171d1c;
+
+  /* --- Typography --- */
+  --font-heading: var(--font-lexend), sans-serif;
+  --font-body: var(--font-plus-jakarta), sans-serif;
+
+  --text-h1: 2.5rem;       /* 40px */
+  --text-h2: 1.875rem;     /* 30px */
+  --text-h3: 1.5rem;       /* 24px */
+  --text-body-lg: 1.125rem;
+  --text-body-md: 1rem;
+  --text-label: 0.75rem;
+
+  /* --- Spacing (8px unit) --- */
+  --spacing-unit: 0.5rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-section: 3rem;
+  --width-sidebar: 16.25rem;   /* 260px */
+  --width-container: 75rem;    /* 1200px */
+
+  /* --- Radii --- */
+  --radius-sm: 0.25rem;
+  --radius: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+}
+
+/* Base */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-on-surface);
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+}
