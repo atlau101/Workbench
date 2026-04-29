@@ -49,6 +49,10 @@ export async function POST(request: Request) {
     return Response.json({ error: "Invalid session mode." }, { status: 400 });
   }
 
+  if (session.completed_at) {
+    return Response.json({ error: "Session is complete." }, { status: 409 });
+  }
+
   if (!gymChatUnlocked(session.mode, session.scaffolding)) {
     return Response.json({ error: "AI is locked for this session." }, { status: 403 });
   }

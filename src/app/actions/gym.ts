@@ -125,6 +125,43 @@ export async function saveScaffoldingDraft(
   return { error: updateError?.message ?? null };
 }
 
+export async function completeSession(
+  sessionId: string
+): Promise<{ error: string | null; completedAt?: string }> {
+  const { supabase, user } = await requireUser();
+  if (!user) return { error: "Not authenticated." };
+
+  const { data: sessionRow, error: sessionError } = await supabase
+    .from("gym_sessions")
+    .select("completed_at")
+    .eq("id", sessionId)
+    .eq("student_id", user.id)
+    .single();
+
+  if (sessionError || !sessionRow) {
+    return { error: "Session not found." };
+  }
+
+  if (sessionRow.completed_at) {
+    return { error: null, completedAt: sessionRow.completed_at };
+  }
+
+  const now = new Date().toISOString();
+  const { error } = await supabase
+    .from("gym_sessions")
+    .update({
+      completed_at: now,
+    })
+    .eq("id", sessionId)
+    .eq("student_id", user.id)
+    .is("completed_at", null);
+
+  return {
+    error: error?.message ?? null,
+    completedAt: error ? undefined : now,
+  };
+}
+
 export async function getSessionForStudent(
   sessionId: string
 ): Promise<GymSessionBundle | { error: string }> {

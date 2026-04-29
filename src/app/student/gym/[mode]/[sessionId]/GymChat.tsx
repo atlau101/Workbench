@@ -18,6 +18,7 @@ interface GymChatProps {
   mode: GymMode;
   initialMessages: GymMessage[];
   unlocked: boolean;
+  completedAt: string | null;
 }
 
 export default function GymChat({
@@ -25,6 +26,7 @@ export default function GymChat({
   mode,
   initialMessages,
   unlocked,
+  completedAt,
 }: GymChatProps) {
   const config = GYM_MODES[mode];
   const [messages, setMessages] = useState<LocalMessage[]>(initialMessages);
@@ -37,8 +39,10 @@ export default function GymChat({
     () => messages.filter((message) => message.role === "user").length,
     [messages]
   );
+  const completed = Boolean(completedAt);
   const limitReached = userCount >= GYM_MESSAGE_LIMIT || isSending;
   const hasMessages = messages.length > 0;
+  const composerDisabled = !chatUnlocked || limitReached || completed;
 
   useEffect(() => {
     setChatUnlocked(unlocked);
@@ -63,7 +67,7 @@ export default function GymChat({
 
   async function handleSend() {
     const message = draft.trim();
-    if (!message || !chatUnlocked || limitReached) return;
+    if (!message || !chatUnlocked || limitReached || completed) return;
 
     setDraft("");
     setError(null);
@@ -157,11 +161,13 @@ export default function GymChat({
               {userCount} / {GYM_MESSAGE_LIMIT} messages used
             </p>
           </div>
-          <PillTag color="teal">{config.tone}</PillTag>
+          <PillTag color={completed ? "amber" : "teal"}>
+            {completed ? "Session complete" : config.tone}
+          </PillTag>
         </div>
       </div>
 
-      <div className="flex-1 space-y-4 overflow-y-auto p-6">
+      <div aria-live="polite" className="flex-1 space-y-4 overflow-y-auto p-6">
         {!hasMessages ? (
           <div className="max-w-[90%] rounded-2xl rounded-tl-sm border border-[color-mix(in_srgb,var(--color-primary)_25%,white)] bg-white p-4 text-sm leading-7 text-[var(--color-on-surface)] shadow-sm">
             {chatUnlocked
@@ -195,7 +201,7 @@ export default function GymChat({
               key={label}
               type="button"
               onClick={() => setDraft(label)}
-              disabled={!chatUnlocked || limitReached}
+              disabled={composerDisabled}
               className="rounded-full border border-[var(--color-outline-variant)] bg-white px-4 py-2 text-sm text-[var(--color-on-surface-variant)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] disabled:cursor-not-allowed disabled:bg-[var(--color-surface-container-low)]"
             >
               {label}
@@ -207,11 +213,13 @@ export default function GymChat({
           <textarea
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
-            disabled={!chatUnlocked || limitReached}
+            disabled={composerDisabled}
             rows={4}
             className="w-full rounded-lg border border-[var(--color-outline-variant)] bg-white px-4 py-3 text-[16px] leading-7 text-[var(--color-on-surface)] outline-none transition-shadow focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20 disabled:cursor-not-allowed disabled:bg-[var(--color-surface-container-low)]"
             placeholder={
-              !chatUnlocked
+              completed
+                ? "This session is complete."
+                : !chatUnlocked
                 ? "Finish the scaffolding first."
                 : limitReached
                   ? "Message limit reached."
@@ -223,13 +231,15 @@ export default function GymChat({
               <p className="text-sm text-[var(--color-error)]">{error}</p>
             ) : (
               <span className="text-sm text-[var(--color-on-surface-variant)]">
-                The coach should deepen your reasoning, not replace it.
+                {completed
+                  ? "Session complete. Chat is locked."
+                  : "The coach should deepen your reasoning, not replace it."}
               </span>
             )}
             <Button
               variant="primary"
               onClick={handleSend}
-              disabled={!draft.trim() || !chatUnlocked || limitReached}
+              disabled={!draft.trim() || composerDisabled}
             >
               Send
             </Button>

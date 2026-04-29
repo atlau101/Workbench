@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { FlaggedAttemptItem } from "@/app/actions/attempts";
+import EmptyState from "@/components/ui/EmptyState";
 
 interface NeedsAttentionPanelProps {
   items: FlaggedAttemptItem[];
@@ -25,14 +26,13 @@ export default function NeedsAttentionPanel({
       </div>
 
       {items.length === 0 ? (
-        <div className="p-6 flex-1 flex flex-col items-center justify-center gap-3 text-center">
-          <span className="material-symbols-outlined text-[var(--color-outline)] text-4xl">
-            check_circle
-          </span>
-          <p className="text-sm text-[var(--color-on-surface-variant)]">
-            No students flagged yet. Flags appear when students submit
-            below-threshold reflections.
-          </p>
+        <div className="flex-1 p-6">
+          <EmptyState
+            icon="check_circle"
+            title="No flags yet"
+            description="Flags appear when students submit below-threshold reflections."
+            className="h-full"
+          />
         </div>
       ) : (
         <div className="divide-y divide-[var(--color-surface-variant)]">

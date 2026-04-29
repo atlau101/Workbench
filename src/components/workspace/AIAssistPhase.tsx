@@ -191,7 +191,7 @@ export default function AIAssistPhase({
           ) : null}
         </div>
 
-        <div className="flex-1 space-y-4 overflow-y-auto p-6">
+        <div aria-live="polite" className="flex-1 space-y-4 overflow-y-auto p-6">
           {!hasMessages ? (
             <div className="max-w-[90%] rounded-2xl rounded-tl-sm border border-[color-mix(in_srgb,var(--color-primary)_25%,white)] bg-white p-4 text-sm leading-7 text-[var(--color-on-surface)] shadow-sm">
               Great start. You&apos;ve unlocked AI assistance. Ask for evidence, challenge your thesis, or strengthen your argument before moving to synthesis.

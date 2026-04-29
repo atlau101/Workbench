@@ -8,6 +8,7 @@ const STEP_INDEX: Record<AttemptStatus, number> = {
   reflect: 0,
   ai_assist: 1,
   synthesize: 2,
+  submitted: 2,
   complete: 2,
 };
 

@@ -15,7 +15,7 @@ export default async function AssignmentDetailPage({
 
   return (
     <div className="space-y-8 max-w-3xl">
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <Link
             href="/instructor/assignments"
@@ -48,7 +48,7 @@ export default async function AssignmentDetailPage({
       </div>
 
       {/* Config summary */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-5 shadow-sm">
           <p className="font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
             AI Message Limit
@@ -134,7 +134,7 @@ export default async function AssignmentDetailPage({
         <p className="font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-3">
           Student Access Link
         </p>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <code className="flex-1 bg-[var(--color-surface-container-low)] rounded-lg px-4 py-2.5 text-sm text-[var(--color-on-surface)] border border-[var(--color-surface-variant)] truncate">
             /a/{id}
           </code>

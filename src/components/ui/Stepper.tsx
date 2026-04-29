@@ -7,12 +7,17 @@ interface StepperProps {
 
 export default function Stepper({ steps, currentStep }: StepperProps) {
   return (
-    <div className="flex items-center gap-0 w-full">
+    <ol role="list" className="flex w-full items-center gap-0">
       {steps.map((label, i) => {
         const done = i < currentStep;
         const active = i === currentStep;
         return (
-          <div key={i} className="flex items-center flex-1 last:flex-none">
+          <li
+            key={label}
+            role="listitem"
+            aria-current={active ? "step" : undefined}
+            className="flex flex-1 items-center last:flex-none"
+          >
             <div className="flex flex-col items-center gap-1">
               <div
                 className={[
@@ -33,9 +38,9 @@ export default function Stepper({ steps, currentStep }: StepperProps) {
             {i < steps.length - 1 && (
               <div className={`flex-1 h-0.5 mx-2 mb-5 ${done ? "bg-[var(--color-primary)]" : "bg-[var(--color-outline-variant)]"}`} />
             )}
-          </div>
+          </li>
         );
       })}
-    </div>
+    </ol>
   );
 }

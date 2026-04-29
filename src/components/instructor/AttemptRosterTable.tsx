@@ -61,6 +61,9 @@ export default async function AttemptRosterTable({
                   Reflection Words
                 </th>
                 <th className="pb-3 pr-4 font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+                  Submitted
+                </th>
+                <th className="pb-3 pr-4 font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
                   Updated
                 </th>
                 <th className="pb-3 text-right font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
@@ -103,6 +106,9 @@ export default async function AttemptRosterTable({
                   </td>
                   <td className="py-4 pr-4 align-top text-[var(--color-on-surface)]">
                     {attempt.reflectionWordCount}
+                  </td>
+                  <td className="py-4 pr-4 align-top text-[var(--color-on-surface-variant)]">
+                    {attempt.submittedAt ? formatDate(attempt.submittedAt) : "—"}
                   </td>
                   <td className="py-4 pr-4 align-top text-[var(--color-on-surface-variant)]">
                     {formatDate(attempt.updatedAt)}

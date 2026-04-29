@@ -45,7 +45,12 @@ export interface CreateAssignmentInput {
   stage_instructions: StageInstructions | null;
 }
 
-export type AttemptStatus = "reflect" | "ai_assist" | "synthesize" | "complete";
+export type AttemptStatus =
+  | "reflect"
+  | "ai_assist"
+  | "synthesize"
+  | "submitted"
+  | "complete";
 
 export interface Attempt {
   id: string;
@@ -55,6 +60,7 @@ export interface Attempt {
   started_at: string;
   gate_passed_at: string | null;
   final_draft_saved_at: string | null;
+  submittedAt: string | null;
 }
 
 export interface ReflectionResponse {
@@ -119,9 +125,13 @@ export function toAssignment(
 }
 
 export function toAttempt(
-  row: Record<string, unknown>
+  row: Record<string, unknown> & { submitted_at?: string | null }
 ): Attempt {
-  return row as unknown as Attempt;
+  const { submitted_at, ...rest } = row;
+  return {
+    ...(rest as Omit<Attempt, "submittedAt">),
+    submittedAt: submitted_at ?? null,
+  };
 }
 
 export function toReflectionResponse(
@@ -164,7 +174,11 @@ export function isLowEffortAttempt(input: {
   }
 
   if (
-    (input.attempt.status === "synthesize" || input.attempt.status === "complete") &&
+    (
+      input.attempt.status === "synthesize" ||
+      input.attempt.status === "submitted" ||
+      input.attempt.status === "complete"
+    ) &&
     countWords(input.finalOutput?.content ?? "") < 50
   ) {
     reasons.push("Final draft is under 50 words.");

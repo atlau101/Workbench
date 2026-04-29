@@ -20,7 +20,7 @@ export default function ReflectionColumn({
   responses: ReflectionResponse[];
 }) {
   return (
-    <section className="flex min-h-0 flex-col gap-4">
+    <section className="flex min-h-0 min-w-0 flex-col gap-4">
       <div className="flex items-center gap-2 pb-2 border-b border-[var(--color-outline-variant)] shrink-0">
         <span className="material-symbols-outlined text-[var(--color-primary)]">
           flag

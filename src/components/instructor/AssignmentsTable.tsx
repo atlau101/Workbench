@@ -1,4 +1,5 @@
 import Link from "next/link";
+import EmptyState from "@/components/ui/EmptyState";
 import type { Assignment } from "@/lib/assignments";
 
 export default function AssignmentsTable({
@@ -8,17 +9,20 @@ export default function AssignmentsTable({
 }) {
   if (assignments.length === 0) {
     return (
-      <div className="text-center py-12 text-[var(--color-on-surface-variant)]">
-        <span className="material-symbols-outlined text-4xl block mb-2">
-          assignment
-        </span>
-        <p className="text-sm">No assignments yet.</p>
-        <Link
-          href="/instructor/assignments/new"
-          className="inline-block mt-4 text-sm font-medium text-[var(--color-primary)] hover:underline"
-        >
-          Create your first assignment →
-        </Link>
+      <div className="p-6">
+        <EmptyState
+          icon="assignment"
+          title="No assignments yet"
+          description="Create your first assignment to start collecting student work."
+          action={
+            <Link
+              href="/instructor/assignments/new"
+              className="inline-block text-sm font-medium text-[var(--color-primary)] hover:underline"
+            >
+              Create your first assignment
+            </Link>
+          }
+        />
       </div>
     );
   }

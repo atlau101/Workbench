@@ -8,7 +8,7 @@ export default function FinalOutputColumn({
   finalOutput: FinalOutput | null;
 }) {
   return (
-    <section className="flex min-h-0 flex-col gap-4 lg:border-l lg:border-[var(--color-outline-variant)] lg:pl-6">
+    <section className="flex min-h-0 min-w-0 flex-col gap-4 lg:border-l lg:border-[var(--color-outline-variant)] lg:pl-6">
       <div className="flex items-center gap-2 pb-2 border-b border-[var(--color-outline-variant)] shrink-0">
         <span className="material-symbols-outlined text-[var(--color-secondary-container)]">
           article

@@ -40,9 +40,11 @@ export default async function StudentAssignmentWorkspacePage({
       ) : null}
 
       {bundle.attempt.status === "synthesize" ||
+      bundle.attempt.status === "submitted" ||
       bundle.attempt.status === "complete" ? (
         <SynthesizePhase
           attemptId={bundle.attempt.id}
+          attempt={bundle.attempt}
           assignment={bundle.assignment}
           finalOutput={bundle.finalOutput}
         />

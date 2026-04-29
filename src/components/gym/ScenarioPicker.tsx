@@ -4,6 +4,7 @@ import { useActionState, useState } from "react";
 import { startSession, type StartSessionState } from "@/app/actions/gym";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
+import EmptyState from "@/components/ui/EmptyState";
 import PillTag from "@/components/ui/PillTag";
 import { GYM_MODES, type GymMode, type Scenario } from "@/lib/gym";
 
@@ -82,44 +83,52 @@ export default function ScenarioPicker({ mode, scenarios }: ScenarioPickerProps)
           <PillTag color="neutral">{scenarios.length} scenarios</PillTag>
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-2">
-          {scenarios.map((scenario) => {
-            const selected = selectedScenarioId === scenario.id;
-            return (
-              <label
-                key={scenario.id}
-                className={[
-                  "block cursor-pointer rounded-[var(--radius-lg)] border bg-[var(--color-surface-container-lowest)] p-5 transition-colors",
-                  selected
-                    ? "border-[var(--color-primary)] shadow-[0_0_0_2px_color-mix(in_srgb,var(--color-primary)_18%,transparent)]"
-                    : "border-[var(--color-outline-variant)] hover:border-[var(--color-primary)]",
-                ].join(" ")}
-              >
-                <input
-                  type="radio"
-                  name="scenarioId"
-                  value={scenario.id}
-                  checked={selected}
-                  onChange={() => {
-                    setSelectedScenarioId(scenario.id);
-                    setCustomTopic("");
-                  }}
-                  className="sr-only"
-                />
-                <div className="flex flex-wrap gap-2">
-                  <PillTag color="neutral">{scenario.discipline}</PillTag>
-                  <PillTag color="neutral">{scenario.difficulty}</PillTag>
-                </div>
-                <h4 className="mt-4 font-[Lexend] text-[18px] font-medium text-[var(--color-on-surface)]">
-                  {scenario.title}
-                </h4>
-                <p className="mt-2 text-sm leading-6 text-[var(--color-on-surface-variant)]">
-                  {scenario.prompt}
-                </p>
-              </label>
-            );
-          })}
-        </div>
+        {scenarios.length === 0 ? (
+          <EmptyState
+            icon="psychology"
+            title="No curated scenarios for this mode yet"
+            description={`Start with your own ${config.label.toLowerCase()} topic above, or come back once curated scenarios are added.`}
+          />
+        ) : (
+          <div className="grid gap-4 lg:grid-cols-2">
+            {scenarios.map((scenario) => {
+              const selected = selectedScenarioId === scenario.id;
+              return (
+                <label
+                  key={scenario.id}
+                  className={[
+                    "block cursor-pointer rounded-[var(--radius-lg)] border bg-[var(--color-surface-container-lowest)] p-5 transition-colors",
+                    selected
+                      ? "border-[var(--color-primary)] shadow-[0_0_0_2px_color-mix(in_srgb,var(--color-primary)_18%,transparent)]"
+                      : "border-[var(--color-outline-variant)] hover:border-[var(--color-primary)]",
+                  ].join(" ")}
+                >
+                  <input
+                    type="radio"
+                    name="scenarioId"
+                    value={scenario.id}
+                    checked={selected}
+                    onChange={() => {
+                      setSelectedScenarioId(scenario.id);
+                      setCustomTopic("");
+                    }}
+                    className="sr-only"
+                  />
+                  <div className="flex flex-wrap gap-2">
+                    <PillTag color="neutral">{scenario.discipline}</PillTag>
+                    <PillTag color="neutral">{scenario.difficulty}</PillTag>
+                  </div>
+                  <h4 className="mt-4 font-[Lexend] text-[18px] font-medium text-[var(--color-on-surface)]">
+                    {scenario.title}
+                  </h4>
+                  <p className="mt-2 text-sm leading-6 text-[var(--color-on-surface-variant)]">
+                    {scenario.prompt}
+                  </p>
+                </label>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {state.error ? (

@@ -31,6 +31,7 @@ export interface AttemptRosterItem {
   studentName: string | null;
   studentLabel: string;
   status: Attempt["status"];
+  submittedAt: string | null;
   reflectionWordCount: number;
   updatedAt: string;
   flagged: boolean;
@@ -75,6 +76,7 @@ function latestAttemptActivity(input: {
     input.attempt.started_at,
     input.attempt.gate_passed_at,
     input.attempt.final_draft_saved_at,
+    input.attempt.submittedAt,
     input.finalOutput?.updated_at ?? null,
     ...input.responses.map((response) => response.updated_at),
   ].filter((value): value is string => Boolean(value));
@@ -246,6 +248,9 @@ export async function saveFinalDraft(
 ): Promise<{ error: string | null; savedAt?: string }> {
   const bundle = await getAttemptForStudent(attemptId);
   if ("error" in bundle) return bundle;
+  if (bundle.attempt.status === "submitted") {
+    return { error: "Final draft already submitted." };
+  }
 
   const now = new Date().toISOString();
   const { supabase } = await requireUser();
@@ -275,6 +280,40 @@ export async function saveFinalDraft(
   return {
     error: attemptError?.message ?? null,
     savedAt: attemptError ? undefined : now,
+  };
+}
+
+export async function submitAttempt(
+  attemptId: string
+): Promise<{ error: string | null; submittedAt?: string }> {
+  const bundle = await getAttemptForStudent(attemptId);
+  if ("error" in bundle) return bundle;
+
+  if (bundle.attempt.status === "submitted") {
+    return {
+      error: null,
+      submittedAt: bundle.attempt.submittedAt ?? new Date().toISOString(),
+    };
+  }
+
+  if (bundle.attempt.status !== "synthesize") {
+    return { error: "Attempt is not ready to submit." };
+  }
+
+  const now = new Date().toISOString();
+  const { supabase } = await requireUser();
+  const { error } = await supabase
+    .from("assignment_attempts")
+    .update({
+      status: "submitted",
+      submitted_at: now,
+    })
+    .eq("id", attemptId)
+    .eq("status", "synthesize");
+
+  return {
+    error: error?.message ?? null,
+    submittedAt: error ? undefined : now,
   };
 }
 
@@ -494,6 +533,7 @@ export async function listAttemptsForAssignment(
         studentName: profile?.full_name ?? null,
         studentLabel: formatStudentLabel(profile, attempt.student_id),
         status: attempt.status,
+        submittedAt: attempt.submittedAt,
         reflectionWordCount: totalWordCount(responses),
         updatedAt: latestAttemptActivity({ attempt, responses, finalOutput }),
         flagged: flag.flagged,
@@ -501,6 +541,16 @@ export async function listAttemptsForAssignment(
       };
     })
     .sort((left, right) => {
+      if (left.submittedAt && right.submittedAt) {
+        return (
+          new Date(right.submittedAt).getTime() -
+          new Date(left.submittedAt).getTime()
+        );
+      }
+
+      if (left.submittedAt) return -1;
+      if (right.submittedAt) return 1;
+
       return new Date(right.updatedAt).getTime() - new Date(left.updatedAt).getTime();
     });
 }
