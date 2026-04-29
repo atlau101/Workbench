@@ -1,29 +1,20 @@
 "use client";
 
+import { Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { signIn, signInWithMagicLink } from "@/app/actions/auth";
 import { Button, Card } from "@/components/ui";
 
-export default function LoginPage() {
+function LoginForm() {
   const searchParams = useSearchParams();
   const [useMagicLink, setUseMagicLink] = useState(false);
   const error = searchParams.get("error");
   const message = searchParams.get("message");
 
   return (
-    <Card elevated className="p-8">
-      <div className="space-y-2">
-        <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-primary)]">
-          Workbench
-        </p>
-        <h1 className="text-[var(--text-h2)] font-semibold">Log in</h1>
-        <p className="text-sm text-[var(--color-on-surface-variant)]">
-          Access your instructor or student workspace.
-        </p>
-      </div>
-
+    <>
       <div className="mt-6 flex rounded-[var(--radius-full)] bg-[var(--color-surface-container)] p-1">
         <button
           type="button"
@@ -112,6 +103,25 @@ export default function LoginPage() {
           Sign up
         </Link>
       </p>
+    </>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Card elevated className="p-8">
+      <div className="space-y-2">
+        <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-primary)]">
+          Workbench
+        </p>
+        <h1 className="text-[var(--text-h2)] font-semibold">Log in</h1>
+        <p className="text-sm text-[var(--color-on-surface-variant)]">
+          Access your instructor or student workspace.
+        </p>
+      </div>
+      <Suspense fallback={<div className="mt-6 h-10 animate-pulse bg-[var(--color-surface-container)] rounded-[var(--radius)]" />}>
+        <LoginForm />
+      </Suspense>
     </Card>
   );
 }
