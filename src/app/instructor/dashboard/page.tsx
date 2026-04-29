@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase";
 import { listMyAssignments } from "@/app/actions/assignments";
+import { listFlaggedAttemptsForInstructor } from "@/app/actions/attempts";
 import MetricCard from "@/components/instructor/MetricCard";
 import NeedsAttentionPanel from "@/components/instructor/NeedsAttentionPanel";
 import TrendChartStub from "@/components/instructor/TrendChartStub";
@@ -16,6 +17,7 @@ export default async function InstructorDashboardPage() {
   if (!user) redirect("/login");
 
   const assignments = await listMyAssignments();
+  const flaggedAttempts = await listFlaggedAttemptsForInstructor();
 
   return (
     <div className="space-y-8">
@@ -60,10 +62,10 @@ export default async function InstructorDashboardPage() {
         />
         <MetricCard
           label="Flagged Students"
-          value={0}
+          value={flaggedAttempts.length}
           icon="warning"
           variant="alert"
-          subtext="No flags yet"
+          subtext={flaggedAttempts.length === 0 ? "No flags yet" : "Review low-effort attempts"}
         />
       </div>
 
@@ -91,7 +93,7 @@ export default async function InstructorDashboardPage() {
 
         {/* Right: needs attention */}
         <div className="lg:col-span-4">
-          <NeedsAttentionPanel count={0} />
+          <NeedsAttentionPanel items={flaggedAttempts} />
         </div>
       </div>
     </div>

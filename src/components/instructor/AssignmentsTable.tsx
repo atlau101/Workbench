@@ -1,19 +1,6 @@
 import Link from "next/link";
 import type { Assignment } from "@/lib/assignments";
 
-const GATE_LABELS: Record<string, string> = {
-  high: "High Gate",
-  low: "Low Gate",
-  progressive: "Progressive",
-};
-
-const GATE_COLORS: Record<string, string> = {
-  high: "text-[var(--color-primary)] bg-[var(--color-primary)]/10 border-[var(--color-primary)]/20",
-  low: "text-[var(--color-on-surface-variant)] bg-[var(--color-surface-container)] border-[var(--color-surface-variant)]",
-  progressive:
-    "text-[var(--color-secondary)] bg-[var(--color-secondary-container)]/20 border-[var(--color-secondary-container)]/30",
-};
-
 export default function AssignmentsTable({
   assignments,
 }: {
@@ -42,7 +29,7 @@ export default function AssignmentsTable({
         <thead>
           <tr className="bg-[var(--color-surface-container-lowest)] border-b border-[var(--color-surface-variant)] text-sm text-[var(--color-on-surface-variant)]">
             <th className="py-4 px-6 font-medium">Assignment</th>
-            <th className="py-4 px-6 font-medium">Gate</th>
+            <th className="py-4 px-6 font-medium">Min Words</th>
             <th className="py-4 px-6 font-medium">AI Limit</th>
             <th className="py-4 px-6 font-medium">Created</th>
             <th className="py-4 px-6 font-medium"></th>
@@ -59,13 +46,7 @@ export default function AssignmentsTable({
                   {a.title}
                 </div>
               </td>
-              <td className="py-4 px-6">
-                <span
-                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium border ${GATE_COLORS[a.gate_level]}`}
-                >
-                  {GATE_LABELS[a.gate_level]}
-                </span>
-              </td>
+              <td className="py-4 px-6 text-sm">{a.minWordCount} words</td>
               <td className="py-4 px-6 text-sm">{a.ai_msg_limit} msgs</td>
               <td className="py-4 px-6 text-sm text-[var(--color-on-surface-variant)]">
                 {new Date(a.created_at).toLocaleDateString()}

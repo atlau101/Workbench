@@ -5,3 +5,7 @@ export const anthropic = new Anthropic({
 });
 
 export const CHAT_MODEL = "claude-sonnet-4-6";
+
+export function anthropicConfigured(): boolean {
+  return Boolean(process.env.ANTHROPIC_API_KEY);
+}

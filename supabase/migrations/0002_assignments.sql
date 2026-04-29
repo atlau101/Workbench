@@ -1,4 +1,15 @@
-create type public.gate_level as enum ('high', 'low', 'progressive');
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_type
+    where typname = 'gate_level'
+      and typnamespace = 'public'::regnamespace
+  ) then
+    create type public.gate_level as enum ('high', 'low', 'progressive');
+  end if;
+end
+$$;
 
 create table public.assignments (
   id uuid primary key default gen_random_uuid(),

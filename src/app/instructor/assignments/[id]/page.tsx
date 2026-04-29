@@ -1,13 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getAssignment } from "@/app/actions/assignments";
+import AttemptRosterTable from "@/components/instructor/AttemptRosterTable";
 import CopyLinkButton from "./CopyLinkButton";
-
-const GATE_LABELS: Record<string, string> = {
-  high: "High Gate",
-  low: "Low Gate",
-  progressive: "Progressive",
-};
 
 export default async function AssignmentDetailPage({
   params,
@@ -35,9 +30,11 @@ export default async function AssignmentDetailPage({
             {assignment.title}
           </h2>
         </div>
-        <span className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20">
-          {GATE_LABELS[assignment.gate_level]}
-        </span>
+        {assignment.gate_level === "progressive" && (
+          <span className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20">
+            Progressive
+          </span>
+        )}
       </div>
 
       {/* Prompt */}
@@ -69,15 +66,20 @@ export default async function AssignmentDetailPage({
             Scaffolding Prompts
           </p>
           <p className="text-[24px] font-medium text-[var(--color-on-background)]">
-            {
-              assignment.scaffolding_prompts.filter((p) => p.enabled).length
-            }
+            {assignment.scaffolding_prompts.filter((p) => p.enabled).length}
             <span className="text-base font-normal text-[var(--color-on-surface-variant)]">
               {" "}
               active
             </span>
           </p>
         </div>
+      </div>
+
+      <div className="rounded-xl border border-[var(--color-surface-variant)] bg-[var(--color-surface-container-lowest)] p-5 shadow-sm">
+        <p className="font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
+          AI Unlock Threshold
+        </p>
+        <p className="text-[var(--color-on-surface)]">Min words: {assignment.minWordCount}</p>
       </div>
 
       {/* Progressive stage instructions */}
@@ -143,21 +145,7 @@ export default async function AssignmentDetailPage({
         </p>
       </div>
 
-      {/* Roster placeholder */}
-      <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-6 shadow-sm">
-        <p className="font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-4">
-          Class Roster
-        </p>
-        <div className="text-center py-8 text-[var(--color-on-surface-variant)]">
-          <span className="material-symbols-outlined text-3xl block mb-2">
-            group
-          </span>
-          <p className="text-sm">No students have started this assignment yet.</p>
-          <p className="text-xs mt-1">
-            Student attempts will appear here once Phase 3 ships.
-          </p>
-        </div>
-      </div>
+      <AttemptRosterTable assignmentId={id} />
     </div>
   );
 }

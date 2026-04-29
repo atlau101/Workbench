@@ -4,7 +4,6 @@ import { useState, useTransition } from "react";
 import { createAssignment } from "@/app/actions/assignments";
 import GateLevelPicker from "@/components/instructor/GateLevelPicker";
 import ScaffoldingEditor from "@/components/instructor/ScaffoldingEditor";
-import ProgressiveStageEditor from "@/components/instructor/ProgressiveStageEditor";
 import type {
   AssignmentTemplate,
   GateLevel,
@@ -30,7 +29,8 @@ interface Props {
 export default function NewAssignmentForm({ templates }: Props) {
   const [title, setTitle] = useState("");
   const [prompt, setPrompt] = useState("");
-  const [gateLevel, setGateLevel] = useState<GateLevel>("high");
+  const [gateLevel, setGateLevel] = useState<GateLevel>("standard");
+  const [minWordCount, setMinWordCount] = useState(150);
   const [aiMsgLimit, setAiMsgLimit] = useState(20);
   const [scaffolding, setScaffolding] = useState<ScaffoldingPrompt[]>([]);
   const [stageInstructions, setStageInstructions] = useState<StageInstructions>(
@@ -56,6 +56,7 @@ export default function NewAssignmentForm({ templates }: Props) {
         title,
         prompt,
         gate_level: gateLevel,
+        minWordCount,
         ai_msg_limit: aiMsgLimit,
         scaffolding_prompts: scaffolding,
         stage_instructions:
@@ -159,13 +160,14 @@ export default function NewAssignmentForm({ templates }: Props) {
                 </p>
               </div>
             </div>
-            <GateLevelPicker value={gateLevel} onChange={setGateLevel} />
-            {gateLevel === "progressive" && (
-              <ProgressiveStageEditor
-                value={stageInstructions}
-                onChange={setStageInstructions}
-              />
-            )}
+            <GateLevelPicker
+              gateLevel={gateLevel}
+              minWordCount={minWordCount}
+              onGateLevelChange={setGateLevel}
+              onMinWordCountChange={setMinWordCount}
+              stageInstructions={stageInstructions}
+              onStageInstructionsChange={setStageInstructions}
+            />
 
             <div className="mt-6">
               <label className="block font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-2">

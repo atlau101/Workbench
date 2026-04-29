@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase";
 import {
+  toAssignment,
   validateAssignmentInput,
   type Assignment,
   type AssignmentTemplate,
@@ -28,6 +29,7 @@ export async function createAssignment(
       title: input.title.trim(),
       prompt: input.prompt.trim(),
       gate_level: input.gate_level,
+      min_word_count: input.minWordCount,
       ai_msg_limit: input.ai_msg_limit,
       scaffolding_prompts: input.scaffolding_prompts,
       stage_instructions:
@@ -49,7 +51,7 @@ export async function listMyAssignments(): Promise<Assignment[]> {
     .order("created_at", { ascending: false });
 
   if (error) return [];
-  return (data ?? []) as Assignment[];
+  return (data ?? []).map((row) => toAssignment(row));
 }
 
 export async function getAssignment(id: string): Promise<Assignment | null> {
@@ -61,7 +63,7 @@ export async function getAssignment(id: string): Promise<Assignment | null> {
     .single();
 
   if (error) return null;
-  return data as Assignment;
+  return toAssignment(data);
 }
 
 export async function listTemplates(): Promise<AssignmentTemplate[]> {
