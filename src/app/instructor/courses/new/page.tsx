@@ -15,7 +15,7 @@ export default function NewCoursePage() {
       </h2>
       <form action={formAction} className="space-y-4">
         <div>
-          <label className="mb-2 block font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+          <label className="mb-2 block font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
             Course Name
           </label>
           <input

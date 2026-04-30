@@ -23,7 +23,7 @@ export default function MetricCard({
       }`}
     >
       <div className="flex justify-between items-start mb-4">
-        <p className="font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+        <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
           {label}
         </p>
         <div

@@ -14,6 +14,12 @@ const QUICK_ACTIONS = [
   "Strengthen my argument",
 ];
 
+const ruledPaper: React.CSSProperties = {
+  backgroundImage:
+    "repeating-linear-gradient(transparent 0px, transparent 27px, var(--color-outline-variant) 27px, var(--color-outline-variant) 28px)",
+  backgroundSize: "100% 28px",
+};
+
 interface AIAssistPhaseProps {
   attemptId: string;
   assignment: Pick<
@@ -74,13 +80,8 @@ export default function AIAssistPhase({
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          attemptId,
-          message,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ attemptId, message }),
       });
 
       if (!response.ok || !response.body) {
@@ -98,9 +99,7 @@ export default function AIAssistPhase({
         assistantText += decoder.decode(value, { stream: true });
         setMessages((current) =>
           current.map((item) =>
-            item.id === assistantMessage.id
-              ? { ...item, content: assistantText }
-              : item
+            item.id === assistantMessage.id ? { ...item, content: assistantText } : item
           )
         );
       }
@@ -147,23 +146,24 @@ export default function AIAssistPhase({
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
+      {/* Left: locked reflection */}
       <SandboxArea className="overflow-hidden">
-        <div className="border-b border-[var(--color-outline-variant)] bg-[var(--color-surface-bright)] px-6 py-4">
+        <div className="border-b border-[var(--color-outline-variant)] bg-[var(--color-surface-container-low)] px-6 py-4">
           <div className="flex items-center justify-between">
-            <h2 className="font-[Lexend] text-[18px] font-medium text-[var(--color-on-surface)]">
+            <h2 className="font-[var(--font-heading)] text-[18px] font-medium text-[var(--color-on-surface)]">
               Your Reflection
             </h2>
             <PillTag color="neutral">Locked</PillTag>
           </div>
         </div>
         <div className="space-y-5 p-6">
-          <div className="rounded-lg bg-[var(--color-surface-container-low)] p-4 text-sm leading-7 text-[var(--color-on-surface)] whitespace-pre-wrap">
+          <div className="rounded-[var(--radius)] bg-[var(--color-surface-container-low)] p-4 text-sm leading-7 text-[var(--color-on-surface)] whitespace-pre-wrap">
             {assignment.prompt}
           </div>
           {reflectionText.map((text, index) => (
             <div
               key={index}
-              className="rounded-lg border border-[var(--color-outline-variant)] bg-white p-4 text-sm leading-7 text-[var(--color-on-surface)]"
+              className="rounded-[var(--radius)] border border-[var(--color-outline-variant)] bg-white p-4 text-sm leading-7 text-[var(--color-on-surface)]"
             >
               {text}
             </div>
@@ -171,15 +171,17 @@ export default function AIAssistPhase({
         </div>
       </SandboxArea>
 
-      <GuideArea className="flex min-h-[640px] flex-col overflow-hidden border-[color-mix(in_srgb,var(--color-primary)_35%,white)] shadow-[0_4px_20px_0_color-mix(in_srgb,var(--color-primary)_12%,transparent)]">
-        <div className="border-b border-[color-mix(in_srgb,var(--color-primary)_20%,white)] bg-white/60 px-6 py-4">
+      {/* Right: binder-paper thinking partner */}
+      <GuideArea className="flex min-h-[640px] flex-col overflow-hidden">
+        {/* Header */}
+        <div className="border-b border-[var(--color-outline-variant)] bg-[var(--color-surface-container-low)] px-6 py-4">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <h2 className="font-[Lexend] text-[18px] font-medium text-[var(--color-primary)]">
-                AI Assistant
+              <h2 className="font-[var(--font-heading)] text-[18px] font-medium text-[var(--color-primary)]">
+                Thinking Partner
               </h2>
               <p className="mt-1 text-sm text-[var(--color-on-surface-variant)]">
-                {userCount} / {assignment.ai_msg_limit} messages used
+                {userCount} / {assignment.ai_msg_limit} exchanges used
               </p>
             </div>
             <PillTag color="teal">AI Guide</PillTag>
@@ -191,84 +193,99 @@ export default function AIAssistPhase({
           ) : null}
         </div>
 
-        <div aria-live="polite" className="flex-1 space-y-4 overflow-y-auto p-6">
+        {/* Thread — ruled paper surface */}
+        <div
+          aria-live="polite"
+          className="flex-1 overflow-y-auto bg-white px-6 py-4"
+          style={ruledPaper}
+        >
+          {/* Welcome note */}
           {!hasMessages ? (
-            <div className="max-w-[90%] rounded-2xl rounded-tl-sm border border-[color-mix(in_srgb,var(--color-primary)_25%,white)] bg-white p-4 text-sm leading-7 text-[var(--color-on-surface)] shadow-sm">
-              Great start. You&apos;ve unlocked AI assistance. Ask for evidence, challenge your thesis, or strengthen your argument before moving to synthesis.
+            <div className="flex gap-4 py-3">
+              <span className="w-8 shrink-0 text-right font-[var(--font-heading)] text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)] pt-1">
+                AI
+              </span>
+              <p className="flex-1 text-[15px] leading-7 text-[var(--color-on-surface)]">
+                Great start. You&apos;ve unlocked AI assistance. Ask for evidence, challenge your thesis, or strengthen your argument before moving to synthesis.
+              </p>
             </div>
           ) : null}
 
           {messages.map((message) => (
-            <div
-              key={message.id}
-              className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
-            >
-              <div
-                className={`max-w-[90%] rounded-2xl p-4 text-sm leading-7 shadow-sm ${
+            <div key={message.id} className="flex gap-4 py-3">
+              <span
+                className={[
+                  "w-8 shrink-0 text-right font-[var(--font-heading)] text-[10px] font-semibold uppercase tracking-widest pt-1",
                   message.role === "user"
-                    ? "rounded-tr-sm bg-[color-mix(in_srgb,var(--color-amber)_20%,white)] text-[var(--color-on-surface)]"
-                    : "rounded-tl-sm border border-[color-mix(in_srgb,var(--color-primary)_25%,white)] bg-white text-[var(--color-on-surface)]"
-                }`}
+                    ? "text-[var(--color-on-surface-variant)]"
+                    : "text-[var(--color-primary)]",
+                ].join(" ")}
               >
-                {message.content || (message.pending ? "..." : "")}
-              </div>
+                {message.role === "user" ? "You" : "AI"}
+              </span>
+              {message.role === "user" ? (
+                <p className="flex-1 text-[15px] leading-7 text-[var(--color-on-surface)]">
+                  {message.content}
+                </p>
+              ) : (
+                <div className="flex-1 rounded-[var(--radius)] bg-[var(--color-surface-container-low)] px-4 py-3 text-[15px] leading-7 text-[var(--color-on-surface)]">
+                  {message.content || (message.pending ? "..." : "")}
+                </div>
+              )}
             </div>
           ))}
         </div>
 
-        <div className="space-y-4 border-t border-[color-mix(in_srgb,var(--color-primary)_20%,white)] bg-white/70 p-6">
+        {/* Composer */}
+        <div className="border-t border-[var(--color-outline-variant)] bg-[var(--color-surface-container-low)] px-6 pt-4 pb-3 space-y-3">
           <div className="flex flex-wrap gap-2">
             {QUICK_ACTIONS.map((label) => (
               <button
                 key={label}
                 type="button"
                 onClick={() => setDraft(label)}
-                className="rounded-full border border-[var(--color-outline-variant)] bg-white px-4 py-2 text-sm text-[var(--color-on-surface-variant)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
+                className="rounded-full border border-[var(--color-outline-variant)] bg-white px-3 py-1.5 text-sm text-[var(--color-on-surface-variant)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
               >
                 {label}
               </button>
             ))}
           </div>
 
-          <div className="space-y-3">
-            <textarea
-              value={draft}
-              onChange={(event) => setDraft(event.target.value)}
-              disabled={limitReached}
-              rows={4}
-              className="w-full rounded-lg border border-[var(--color-outline-variant)] bg-white px-4 py-3 text-[16px] leading-7 text-[var(--color-on-surface)] outline-none transition-shadow focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20 disabled:cursor-not-allowed disabled:bg-[var(--color-surface-container-low)]"
-              placeholder={
-                limitReached
-                  ? "Message limit reached."
-                  : "Ask AI to challenge or strengthen your thinking."
-              }
-            />
-            <div className="flex items-center justify-between gap-4">
-              {error ? (
-                <p className="text-sm text-[var(--color-error)]">{error}</p>
-              ) : (
-                <span className="text-sm text-[var(--color-on-surface-variant)]">
-                  Stay aligned to the assignment. AI will not write the final answer for you.
-                </span>
-              )}
-              <Button
-                variant="primary"
-                onClick={handleSend}
-                disabled={!draft.trim() || limitReached}
-              >
-                Send
-              </Button>
-            </div>
+          <textarea
+            value={draft}
+            onChange={(event) => setDraft(event.target.value)}
+            disabled={limitReached}
+            rows={3}
+            className="w-full rounded-[var(--radius)] border border-[var(--color-outline-variant)] bg-white px-4 py-3 text-[16px] leading-7 text-[var(--color-on-surface)] outline-none transition-shadow focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20 disabled:cursor-not-allowed disabled:bg-[var(--color-surface-container)]"
+            placeholder={
+              limitReached
+                ? "Exchange limit reached."
+                : "Ask AI to challenge or strengthen your thinking."
+            }
+          />
+          <div className="flex items-center justify-between gap-4">
+            {error ? (
+              <p className="text-sm text-[var(--color-error)]">{error}</p>
+            ) : (
+              <span className="text-sm text-[var(--color-on-surface-variant)]">
+                Stay on the assignment. AI won&apos;t write the final answer for you.
+              </span>
+            )}
+            <Button variant="primary" onClick={handleSend} disabled={!draft.trim() || limitReached}>
+              Send
+            </Button>
           </div>
+        </div>
 
-          <div className="flex justify-end">
-            <Button
-              variant="motivational"
-              size="lg"
-              onClick={handleContinue}
-              disabled={isPending}
-            >
+        {/* Progression — visually separated */}
+        <div className="border-t-2 border-dashed border-[var(--color-outline-variant)] bg-[var(--color-surface-container)] px-6 py-4">
+          <div className="flex items-center justify-between gap-4">
+            <p className="text-sm text-[var(--color-on-surface-variant)]">
+              Ready to write your final draft?
+            </p>
+            <Button variant="motivational" size="lg" onClick={handleContinue} disabled={isPending}>
               Continue to Synthesize
+              <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
             </Button>
           </div>
         </div>

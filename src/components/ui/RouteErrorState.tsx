@@ -15,7 +15,7 @@ export default function RouteErrorState({
         error
       </span>
       <div className="space-y-2">
-        <h2 className="font-[Lexend] text-[24px] font-semibold text-[var(--color-on-surface)]">
+        <h2 className="font-[var(--font-heading)] text-[24px] font-semibold text-[var(--color-on-surface)]">
           {title}
         </h2>
         <p className="text-sm text-[var(--color-on-surface-variant)]">

@@ -26,10 +26,10 @@ export default function IdentityCard({
     <Card className="p-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="font-[Lexend] text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--color-on-surface-variant)]">
+          <p className="font-[var(--font-heading)] text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--color-on-surface-variant)]">
             Identity
           </p>
-          <h1 className="mt-3 font-[Lexend] text-[32px] font-semibold text-[var(--color-on-surface)]">
+          <h1 className="mt-3 font-[var(--font-heading)] text-[32px] font-semibold text-[var(--color-on-surface)]">
             {name}
           </h1>
           <p className="mt-2 text-[16px] text-[var(--color-on-surface-variant)]">

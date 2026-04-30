@@ -44,7 +44,7 @@ export default function NeedsAttentionPanel({
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-primary)]">
+                  <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-primary)]">
                     {item.studentLabel}
                   </p>
                   <p className="mt-1 text-sm font-medium text-[var(--color-on-surface)] line-clamp-2">

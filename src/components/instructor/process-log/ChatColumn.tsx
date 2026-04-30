@@ -12,7 +12,7 @@ export default function ChatColumn({
         <span className="material-symbols-outlined text-[var(--color-tertiary-container)]">
           forum
         </span>
-        <h3 className="font-[Lexend] text-[24px] leading-[1.4] font-medium text-[var(--color-on-background)]">
+        <h3 className="font-[var(--font-heading)] text-[24px] leading-[1.4] font-medium text-[var(--color-on-background)]">
           2. AI Assistance Session
         </h3>
       </div>
@@ -40,7 +40,7 @@ export default function ChatColumn({
                 }`}
               >
                 {message.role === "assistant" ? (
-                  <span className="absolute top-2 right-3 font-[Lexend] text-[10px] font-semibold tracking-[0.05em] uppercase text-[var(--color-primary)]">
+                  <span className="absolute top-2 right-3 font-[var(--font-heading)] text-[10px] font-semibold tracking-[0.05em] uppercase text-[var(--color-primary)]">
                     Guide AI
                   </span>
                 ) : null}

@@ -43,14 +43,14 @@ export default async function CourseDetailPage({
       </div>
 
       <div className="space-y-3 rounded-xl border border-[var(--color-surface-variant)] bg-[var(--color-surface-container-lowest)] p-5 shadow-sm">
-        <p className="font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+        <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
           Invite Student
         </p>
         <InviteStudentForm courseId={id} />
       </div>
 
       <div className="space-y-3 rounded-xl border border-[var(--color-surface-variant)] bg-[var(--color-surface-container-lowest)] p-5 shadow-sm">
-        <p className="font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+        <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
           Students ({roster.length})
         </p>
         <EnrollmentRoster enrollments={roster} courseId={id} />
@@ -58,7 +58,7 @@ export default async function CourseDetailPage({
 
       <div className="space-y-3 rounded-xl border border-[var(--color-surface-variant)] bg-[var(--color-surface-container-lowest)] p-5 shadow-sm">
         <div className="flex items-center justify-between">
-          <p className="font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+          <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
             Assignments ({courseAssignments.length})
           </p>
           <Link

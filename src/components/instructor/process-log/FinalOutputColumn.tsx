@@ -13,7 +13,7 @@ export default function FinalOutputColumn({
         <span className="material-symbols-outlined text-[var(--color-secondary-container)]">
           article
         </span>
-        <h3 className="font-[Lexend] text-[24px] leading-[1.4] font-medium text-[var(--color-on-background)]">
+        <h3 className="font-[var(--font-heading)] text-[24px] leading-[1.4] font-medium text-[var(--color-on-background)]">
           3. Final Output
         </h3>
       </div>

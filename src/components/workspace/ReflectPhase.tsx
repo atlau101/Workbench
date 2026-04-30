@@ -89,7 +89,7 @@ export default function ReflectPhase({
       <SandboxArea className="p-8 shadow-sm">
         <div className="flex items-center justify-between border-b border-[var(--color-outline-variant)] pb-4">
           <div>
-            <h2 className="font-[Lexend] text-[24px] leading-[1.4] font-medium text-[var(--color-on-surface)]">
+            <h2 className="font-[var(--font-heading)] text-[24px] leading-[1.4] font-medium text-[var(--color-on-surface)]">
               Initial Reflection Gate
             </h2>
             <p className="mt-2 text-sm text-[var(--color-on-surface-variant)]">
@@ -104,7 +104,7 @@ export default function ReflectPhase({
             const response = responses.find((item) => item.prompt_id === prompt.id);
             return (
               <div key={prompt.id} className="space-y-3">
-                <label className="block font-[Lexend] text-[18px] font-medium text-[var(--color-on-surface)]">
+                <label className="block font-[var(--font-heading)] text-[18px] font-medium text-[var(--color-on-surface)]">
                   {prompt.text}
                 </label>
                 <textarea
@@ -147,23 +147,60 @@ export default function ReflectPhase({
         </div>
       </SandboxArea>
 
-      <Card className="h-fit p-6">
-        <div className="space-y-4">
-          <PillTag color="neutral">Reflection</PillTag>
-          <div>
-            <h3 className="font-[Lexend] text-[20px] font-semibold text-[var(--color-on-surface)]">
-              Awaiting Your Thoughts
-            </h3>
-            <p className="mt-2 text-sm leading-6 text-[var(--color-on-surface-variant)]">
-              Complete the reflection to unlock AI assistance.
-            </p>
+      <Card className="h-fit p-6 sticky top-8 space-y-5">
+        {/* Word count progress */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="font-[var(--font-heading)] text-[10px] font-semibold uppercase tracking-widest text-[var(--color-on-surface-variant)]">
+              Word Target
+            </span>
+            <span className="text-sm font-semibold text-[var(--color-on-surface)]">
+              {totalWords} / {assignment.minWordCount}
+            </span>
           </div>
-          {assignment.gate_level === "progressive" && assignment.stage_instructions?.reflect ? (
-            <div className="rounded-lg border border-[var(--color-outline-variant)] bg-[var(--color-surface-container-low)] p-4 text-sm leading-6 text-[var(--color-on-surface-variant)]">
-              {assignment.stage_instructions.reflect}
-            </div>
-          ) : null}
+          <div className="h-2 w-full overflow-hidden rounded-full bg-[var(--color-surface-container-high)]">
+            <div
+              className="h-full rounded-full bg-[var(--color-primary)] transition-all duration-500"
+              style={{ width: `${Math.min((totalWords / assignment.minWordCount) * 100, 100)}%` }}
+            />
+          </div>
+          {thresholdMet ? (
+            <p className="text-sm leading-6 font-medium text-[var(--color-primary)]">
+              Threshold met. Complete your reflection below to unlock AI.
+            </p>
+          ) : (
+            <p className="text-sm leading-6 text-[var(--color-on-surface-variant)]">
+              {assignment.minWordCount - totalWords} more words to unlock AI assistance.
+            </p>
+          )}
         </div>
+
+        <div className="border-t border-[var(--color-outline-variant)]" />
+
+        {/* What happens next */}
+        <div className="space-y-1.5">
+          <span className="font-[var(--font-heading)] text-[10px] font-semibold uppercase tracking-widest text-[var(--color-on-surface-variant)]">
+            What happens next
+          </span>
+          <p className="text-sm leading-6 text-[var(--color-on-surface-variant)]">
+            Once you complete the gate, AI assistance unlocks. The AI builds on what you&apos;ve written here — it won&apos;t start from scratch.
+          </p>
+        </div>
+
+        {/* Instructor note */}
+        {assignment.gate_level === "progressive" && assignment.stage_instructions?.reflect ? (
+          <>
+            <div className="border-t border-[var(--color-outline-variant)]" />
+            <div className="space-y-1.5">
+              <span className="font-[var(--font-heading)] text-[10px] font-semibold uppercase tracking-widest text-[var(--color-on-surface-variant)]">
+                Instructor Note
+              </span>
+              <p className="text-sm leading-6 text-[var(--color-on-surface-variant)]">
+                {assignment.stage_instructions.reflect}
+              </p>
+            </div>
+          </>
+        ) : null}
       </Card>
     </div>
   );

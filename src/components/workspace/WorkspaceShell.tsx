@@ -32,7 +32,7 @@ export default function WorkspaceShell({
           </PillTag>
         </div>
         <div>
-          <h1 className="font-[Lexend] text-[40px] leading-[1.2] font-semibold text-[var(--color-on-background)]">
+          <h1 className="font-[var(--font-heading)] text-[40px] leading-[1.2] font-semibold text-[var(--color-on-background)]">
             {assignment.title}
           </h1>
         </div>

@@ -77,14 +77,14 @@ export default function Sidebar({ role }: SidebarProps) {
         aria-label="Close navigation menu"
         onClick={closeSidebar}
         className={[
-          "fixed inset-0 z-40 bg-black/35 transition-opacity md:hidden",
+          "fixed inset-0 z-40 bg-[var(--color-on-surface)]/40 transition-opacity md:hidden",
           open ? "opacity-100" : "pointer-events-none opacity-0",
         ].join(" ")}
       />
 
       <aside
         className={[
-          "fixed inset-y-0 left-0 z-50 flex w-[260px] flex-col border-r border-gray-200 bg-gray-50 p-4 font-[var(--font-heading)] text-sm transition-transform duration-200 ease-out",
+          "fixed inset-y-0 left-0 z-50 flex w-[260px] flex-col border-r border-[var(--color-outline-variant)] bg-[var(--color-surface-container-low)] p-4 font-[var(--font-heading)] text-sm transition-transform duration-200 ease-out",
           open ? "translate-x-0" : "-translate-x-full",
           "md:translate-x-0",
         ].join(" ")}
@@ -95,7 +95,7 @@ export default function Sidebar({ role }: SidebarProps) {
             <span className="material-symbols-outlined">menu_book</span>
           </div>
           <div>
-            <h1 className="text-lg font-black text-teal-600">Workbench</h1>
+            <h1 className="text-lg font-black text-[var(--color-primary)]">Workbench</h1>
             <p className="text-xs text-[var(--color-on-surface-variant)] opacity-70">Educational App</p>
           </div>
         </div>
@@ -124,8 +124,8 @@ export default function Sidebar({ role }: SidebarProps) {
                 className={[
                   "flex items-center gap-3 rounded-lg px-4 py-3 transition-all",
                   active
-                    ? "border-r-4 border-[var(--color-primary)] bg-[color-mix(in_srgb,var(--color-primary-container)_10%,white)] font-bold text-[var(--color-primary)]"
-                    : "text-gray-600 hover:bg-gray-100 hover:text-teal-600",
+                    ? "bg-[var(--color-surface-container)] font-semibold text-[var(--color-primary)]"
+                    : "text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-container)] hover:text-[var(--color-on-surface)]",
                 ].join(" ")}
               >
                 <span
@@ -142,7 +142,7 @@ export default function Sidebar({ role }: SidebarProps) {
         <div className="mt-auto space-y-1 border-t border-[var(--color-outline-variant)] pt-4">
           <button
             type="button"
-            className="flex w-full items-center gap-3 rounded-lg px-4 py-2 text-left text-gray-600 transition-all hover:bg-gray-100 hover:text-teal-600"
+            className="flex w-full items-center gap-3 rounded-lg px-4 py-2 text-left text-[var(--color-on-surface-variant)] transition-all hover:bg-[var(--color-surface-container)] hover:text-[var(--color-on-surface)]"
           >
             <span className="material-symbols-outlined">settings</span>
             Settings
@@ -151,7 +151,7 @@ export default function Sidebar({ role }: SidebarProps) {
             <button
               type="submit"
               aria-label="Sign out"
-              className="flex w-full items-center gap-3 rounded-lg px-4 py-2 text-left text-gray-600 transition-all hover:bg-gray-100 hover:text-teal-600"
+              className="flex w-full items-center gap-3 rounded-lg px-4 py-2 text-left text-[var(--color-on-surface-variant)] transition-all hover:bg-[var(--color-surface-container)] hover:text-[var(--color-on-surface)]"
             >
               <span className="material-symbols-outlined">logout</span>
               Sign out

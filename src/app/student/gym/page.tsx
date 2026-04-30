@@ -10,7 +10,7 @@ export default function StudentGymPage() {
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div className="max-w-3xl">
           <PillTag color="amber">Thinking Gym</PillTag>
-          <h2 className="mt-4 font-[Lexend] text-[40px] font-semibold leading-[1.15] text-[var(--color-on-surface)]">
+          <h2 className="mt-4 font-[var(--font-heading)] text-[40px] font-semibold leading-[1.15] text-[var(--color-on-surface)]">
             Train how you think, not just what you produce.
           </h2>
           <p className="mt-4 text-[18px] leading-8 text-[var(--color-on-surface-variant)]">

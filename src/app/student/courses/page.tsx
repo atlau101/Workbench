@@ -41,7 +41,7 @@ export default async function StudentCoursesPage() {
 
       {invites.length > 0 && (
         <section className="space-y-3">
-          <h3 className="font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+          <h3 className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
             Pending Invitations
           </h3>
           {invites.map((invite) => (
@@ -52,7 +52,7 @@ export default async function StudentCoursesPage() {
 
       {enrolledCourses.length > 0 && (
         <section className="space-y-3">
-          <h3 className="font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+          <h3 className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
             Enrolled
           </h3>
           <EnrolledCourseList courses={enrolledCourses} />

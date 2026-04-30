@@ -81,7 +81,7 @@ export default async function GymSessionPage({
           )}
         </div>
         <div>
-          <h2 className="font-[Lexend] text-[32px] font-semibold text-[var(--color-on-surface)]">
+          <h2 className="font-[var(--font-heading)] text-[32px] font-semibold text-[var(--color-on-surface)]">
             {config.label}
           </h2>
           <p className="mt-3 max-w-3xl text-[16px] leading-7 text-[var(--color-on-surface-variant)]">
@@ -106,7 +106,7 @@ export default async function GymSessionPage({
                 <PillTag color="neutral">{sessionBundle.scenario.difficulty}</PillTag>
               ) : null}
             </div>
-            <h3 className="mt-4 font-[Lexend] text-[24px] font-semibold text-[var(--color-on-surface)]">
+            <h3 className="mt-4 font-[var(--font-heading)] text-[24px] font-semibold text-[var(--color-on-surface)]">
               {summaryTitle}
             </h3>
             <p className="mt-3 whitespace-pre-wrap text-sm leading-7 text-[var(--color-on-surface-variant)]">

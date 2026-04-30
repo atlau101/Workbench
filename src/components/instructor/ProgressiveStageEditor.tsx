@@ -39,7 +39,7 @@ export default function ProgressiveStageEditor({ value, onChange }: Props) {
       </p>
       {STAGES.map((s) => (
         <div key={s.key}>
-          <label className="flex items-center gap-1.5 font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
+          <label className="flex items-center gap-1.5 font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
             <span className="material-symbols-outlined text-[14px]">
               {s.icon}
             </span>

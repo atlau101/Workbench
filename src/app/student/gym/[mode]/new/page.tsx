@@ -33,7 +33,7 @@ export default async function NewGymSessionPage({
           <PillTag color="neutral">{config.tone}</PillTag>
         </div>
         <div>
-          <h2 className="font-[Lexend] text-[32px] font-semibold text-[var(--color-on-surface)]">
+          <h2 className="font-[var(--font-heading)] text-[32px] font-semibold text-[var(--color-on-surface)]">
             Start a {config.label} Session
           </h2>
           <p className="mt-3 max-w-3xl text-[16px] leading-7 text-[var(--color-on-surface-variant)]">

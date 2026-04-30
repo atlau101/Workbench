@@ -33,7 +33,7 @@ export default async function InstructorDashboardPage() {
         </div>
         <Link
           href="/instructor/assignments/new"
-          className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase hover:bg-[var(--color-primary-container)] transition-colors flex items-center gap-2 shadow-sm"
+          className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase hover:bg-[var(--color-primary-container)] transition-colors flex items-center gap-2 shadow-sm"
         >
           <span className="material-symbols-outlined text-[18px]">add</span>
           New Assignment
@@ -82,7 +82,7 @@ export default async function InstructorDashboardPage() {
               </h3>
               <Link
                 href="/instructor/assignments"
-                className="font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-primary)] hover:text-[var(--color-primary-container)] transition-colors"
+                className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-primary)] hover:text-[var(--color-primary-container)] transition-colors"
               >
                 View All
               </Link>
