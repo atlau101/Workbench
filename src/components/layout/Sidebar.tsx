@@ -27,11 +27,23 @@ const navItemsByRole: Record<Role, NavItem[]> = {
       icon: "edit_note",
       matchPrefix: "/instructor/assignments",
     },
+    {
+      href: "/instructor/courses",
+      label: "Courses",
+      icon: "group",
+      matchPrefix: "/instructor/courses",
+    },
     { href: "/instructor/gym", label: "Thinking Gym", icon: "psychology" },
     { href: "/instructor/profile", label: "Profile", icon: "person" },
   ],
   student: [
     { href: "/student/dashboard", label: "Dashboard", icon: "dashboard" },
+    {
+      href: "/student/courses",
+      label: "Courses",
+      icon: "school",
+      matchPrefix: "/student/courses",
+    },
     {
       href: "/student/assignments",
       label: "Workspace",

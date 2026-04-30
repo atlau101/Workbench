@@ -1,20 +1,25 @@
 import { listTemplates } from "@/app/actions/assignments";
+import { listMyCourses } from "@/app/actions/courses";
 import NewAssignmentForm from "./Form";
 
-export default async function NewInstructorAssignmentPage() {
-  const templates = await listTemplates();
+export default async function NewAssignmentPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ courseId?: string }>;
+}) {
+  const { courseId } = await searchParams;
+  const [templates, courses] = await Promise.all([
+    listTemplates(),
+    listMyCourses(),
+  ]);
+
   return (
-    <div className="space-y-6 pb-24">
-      <div>
-        <h2 className="text-[30px] leading-[1.3] font-semibold text-[var(--color-on-background)]">
-          Create New Assignment
-        </h2>
-        <p className="mt-1 text-[var(--color-on-surface-variant)]">
-          Set up a new assignment with a gate configuration and scaffolding
-          prompts.
-        </p>
-      </div>
-      <NewAssignmentForm templates={templates} />
+    <div className="px-0">
+      <NewAssignmentForm
+        templates={templates}
+        courses={courses}
+        defaultCourseId={courseId}
+      />
     </div>
   );
 }

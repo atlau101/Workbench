@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AssignmentStatusBadge from "@/components/instructor/AssignmentStatusBadge";
 import EmptyState from "@/components/ui/EmptyState";
 import type { Assignment } from "@/lib/assignments";
 
@@ -33,6 +34,7 @@ export default function AssignmentsTable({
         <thead>
           <tr className="bg-[var(--color-surface-container-lowest)] border-b border-[var(--color-surface-variant)] text-sm text-[var(--color-on-surface-variant)]">
             <th className="py-4 px-6 font-medium">Assignment</th>
+            <th className="py-4 px-6 font-medium">Status</th>
             <th className="py-4 px-6 font-medium">Min Words</th>
             <th className="py-4 px-6 font-medium">AI Limit</th>
             <th className="py-4 px-6 font-medium">Created</th>
@@ -49,6 +51,9 @@ export default function AssignmentsTable({
                 <div className="font-medium text-[var(--color-on-background)] group-hover:text-[var(--color-primary)] transition-colors">
                   {a.title}
                 </div>
+              </td>
+              <td className="py-4 px-6">
+                <AssignmentStatusBadge status={a.status} />
               </td>
               <td className="py-4 px-6 text-sm">{a.minWordCount} words</td>
               <td className="py-4 px-6 text-sm">{a.ai_msg_limit} msgs</td>

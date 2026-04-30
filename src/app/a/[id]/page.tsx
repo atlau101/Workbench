@@ -21,8 +21,9 @@ export default async function AssignmentAccessPage({
 
   const { data, error } = await supabase
     .from("assignments")
-    .select("id, title, prompt, gate_level, ai_msg_limit")
+    .select("id, title, prompt, gate_level, ai_msg_limit, status")
     .eq("id", id)
+    .eq("status", "published")
     .single();
 
   if (error || !data) notFound();

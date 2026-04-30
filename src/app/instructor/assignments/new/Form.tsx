@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { createAssignment } from "@/app/actions/assignments";
 import GateLevelPicker from "@/components/instructor/GateLevelPicker";
 import ScaffoldingEditor from "@/components/instructor/ScaffoldingEditor";
+import type { Course } from "@/lib/courses";
 import type {
   AssignmentTemplate,
   GateLevel,
@@ -24,11 +25,20 @@ const STEPS = ["Basic Info", "Gate Config", "Scaffolding", "Integration"];
 
 interface Props {
   templates: AssignmentTemplate[];
+  courses: Course[];
+  defaultCourseId?: string;
 }
 
-export default function NewAssignmentForm({ templates }: Props) {
+export default function NewAssignmentForm({
+  templates,
+  courses,
+  defaultCourseId,
+}: Props) {
   const [title, setTitle] = useState("");
   const [prompt, setPrompt] = useState("");
+  const [courseId, setCourseId] = useState(
+    defaultCourseId ?? (courses[0]?.id ?? "")
+  );
   const [gateLevel, setGateLevel] = useState<GateLevel>("standard");
   const [minWordCount, setMinWordCount] = useState(150);
   const [aiMsgLimit, setAiMsgLimit] = useState(20);
@@ -53,6 +63,7 @@ export default function NewAssignmentForm({ templates }: Props) {
     setError(null);
     startTransition(async () => {
       const result = await createAssignment({
+        courseId,
         title,
         prompt,
         gate_level: gateLevel,
@@ -143,6 +154,23 @@ export default function NewAssignmentForm({ templates }: Props) {
                   placeholder="Enter the main task description…"
                   className="w-full rounded-lg border border-[var(--color-outline-variant)] focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20 py-2.5 px-3 text-[var(--color-on-surface)] text-[16px] bg-[var(--color-surface-bright)] resize-y transition-shadow"
                 />
+              </div>
+              <div>
+                <label className="block font-[Lexend] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-2">
+                  Course
+                </label>
+                <select
+                  required
+                  value={courseId}
+                  onChange={(e) => setCourseId(e.target.value)}
+                  className="w-full rounded-lg border border-[var(--color-outline-variant)] focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20 py-2.5 px-3 text-[var(--color-on-surface)] text-[16px] bg-[var(--color-surface-bright)]"
+                >
+                  {courses.map((course) => (
+                    <option key={course.id} value={course.id}>
+                      {course.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
           </section>

@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getAssignment } from "@/app/actions/assignments";
+import AssignmentStatusBadge from "@/components/instructor/AssignmentStatusBadge";
 import AttemptRosterTable from "@/components/instructor/AttemptRosterTable";
+import PublishToggle from "@/components/instructor/PublishToggle";
 import CopyLinkButton from "./CopyLinkButton";
 
 export default async function AssignmentDetailPage({
@@ -29,6 +31,13 @@ export default async function AssignmentDetailPage({
           <h2 className="text-[30px] leading-[1.3] font-semibold text-[var(--color-on-background)]">
             {assignment.title}
           </h2>
+          <div className="mt-2 flex items-center gap-3">
+            <AssignmentStatusBadge status={assignment.status} />
+            <PublishToggle
+              assignmentId={assignment.id}
+              currentStatus={assignment.status}
+            />
+          </div>
         </div>
         {assignment.gate_level === "progressive" && (
           <span className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20">

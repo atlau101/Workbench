@@ -1,4 +1,5 @@
 export type GateLevel = "standard" | "progressive";
+export type AssignmentStatus = "draft" | "published" | "hidden";
 
 export interface ScaffoldingPrompt {
   id: string;
@@ -15,6 +16,7 @@ export interface StageInstructions {
 export interface Assignment {
   id: string;
   instructor_id: string;
+  course_id: string;
   title: string;
   prompt: string;
   gate_level: GateLevel;
@@ -22,6 +24,7 @@ export interface Assignment {
   ai_msg_limit: number;
   scaffolding_prompts: ScaffoldingPrompt[];
   stage_instructions: StageInstructions | null;
+  status: AssignmentStatus;
   created_at: string;
 }
 
@@ -36,6 +39,7 @@ export interface AssignmentTemplate {
 }
 
 export interface CreateAssignmentInput {
+  courseId: string;
   title: string;
   prompt: string;
   gate_level: GateLevel;
