@@ -28,7 +28,7 @@ export default async function AttemptRosterTable({
   return (
     <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-6">
       <div className="flex items-center justify-between gap-4 mb-4">
-        <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+        <p className="font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
           Submission History
         </p>
         <span className="text-sm text-[var(--color-on-surface-variant)]">
@@ -51,22 +51,22 @@ export default async function AttemptRosterTable({
           <table className="min-w-full text-sm">
             <thead>
               <tr className="border-b border-[var(--color-surface-variant)] text-left">
-                <th className="pb-3 pr-4 font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+                <th className="pb-3 pr-4 font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
                   Student
                 </th>
-                <th className="pb-3 pr-4 font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+                <th className="pb-3 pr-4 font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
                   Status
                 </th>
-                <th className="pb-3 pr-4 font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+                <th className="pb-3 pr-4 font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
                   Reflection Words
                 </th>
-                <th className="pb-3 pr-4 font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+                <th className="pb-3 pr-4 font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
                   Submitted
                 </th>
-                <th className="pb-3 pr-4 font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+                <th className="pb-3 pr-4 font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
                   Updated
                 </th>
-                <th className="pb-3 text-right font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+                <th className="pb-3 text-right font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
                   Review
                 </th>
               </tr>

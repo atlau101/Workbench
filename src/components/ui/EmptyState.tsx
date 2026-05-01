@@ -26,7 +26,7 @@ export default function EmptyState({
         {icon}
       </span>
       <div className="space-y-2">
-        <h3 className="font-[var(--font-heading)] text-[20px] font-semibold text-[var(--color-on-surface)]">
+        <h3 className="font-heading text-[20px] font-semibold text-[var(--color-on-surface)]">
           {title}
         </h3>
         <p className="max-w-xl text-sm leading-6 text-[var(--color-on-surface-variant)]">

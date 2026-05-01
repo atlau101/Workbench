@@ -17,12 +17,12 @@ export default function StyleguidePage() {
       {/* Typography */}
       <section className="space-y-3">
         <h2 className="text-2xl font-medium border-b border-[var(--color-outline-variant)] pb-2">Typography</h2>
-        <h1 className="font-[var(--font-heading)] text-[2.5rem] font-semibold">Heading 1 — Lexend 40px</h1>
-        <h2 className="font-[var(--font-heading)] text-[1.875rem] font-semibold">Heading 2 — Lexend 30px</h2>
-        <h3 className="font-[var(--font-heading)] text-[1.5rem] font-medium">Heading 3 — Lexend 24px</h3>
+        <h1 className="font-heading text-[2.5rem] font-semibold">Heading 1 — Lexend 40px</h1>
+        <h2 className="font-heading text-[1.875rem] font-semibold">Heading 2 — Lexend 30px</h2>
+        <h3 className="font-heading text-[1.5rem] font-medium">Heading 3 — Lexend 24px</h3>
         <p className="text-[1.125rem] leading-[1.6]">Body Large — Plus Jakarta Sans 18px with comfortable 1.6 line height for reading ease.</p>
         <p className="text-base leading-[1.6]">Body Medium — Plus Jakarta Sans 16px. Default body text size throughout the app.</p>
-        <span className="font-[var(--font-heading)] text-xs font-semibold tracking-widest uppercase">Label Caps — Lexend 12px</span>
+        <span className="font-heading text-xs font-semibold tracking-widest uppercase">Label Caps — Lexend 12px</span>
       </section>
 
       {/* Colors */}
@@ -64,11 +64,11 @@ export default function StyleguidePage() {
         <h2 className="text-2xl font-medium border-b border-[var(--color-outline-variant)] pb-2">Cards</h2>
         <div className="flex gap-4">
           <Card className="p-6 flex-1">
-            <p className="font-semibold font-[var(--font-heading)]">Standard Card</p>
+            <p className="font-semibold font-heading">Standard Card</p>
             <p className="text-sm text-[var(--color-on-surface-variant)] mt-1">Level 1 — white surface with outline border</p>
           </Card>
           <Card elevated className="p-6 flex-1">
-            <p className="font-semibold font-[var(--font-heading)]">Elevated Card</p>
+            <p className="font-semibold font-heading">Elevated Card</p>
             <p className="text-sm text-[var(--color-on-surface-variant)] mt-1">Level 2 — teal tonal shadow for active focus</p>
           </Card>
         </div>
@@ -79,11 +79,11 @@ export default function StyleguidePage() {
         <h2 className="text-2xl font-medium border-b border-[var(--color-outline-variant)] pb-2">Workspace Areas</h2>
         <div className="flex gap-4">
           <SandboxArea className="p-6 flex-1">
-            <p className="font-semibold font-[var(--font-heading)]">Sandbox (Student)</p>
+            <p className="font-semibold font-heading">Sandbox (Student)</p>
             <p className="text-sm text-[var(--color-on-surface-variant)] mt-1">Clean white — safe space for student input</p>
           </SandboxArea>
           <GuideArea className="p-6 flex-1 pt-8">
-            <p className="font-semibold font-[var(--font-heading)]">Guide (AI)</p>
+            <p className="font-semibold font-heading">Guide (AI)</p>
             <p className="text-sm text-[var(--color-on-surface-variant)] mt-1">Teal-tinted with dashed border — generated content</p>
           </GuideArea>
         </div>

@@ -12,7 +12,7 @@ const GuideArea = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
       ].join(" ")}
       {...props}
     >
-      <span className="absolute top-3 right-3 text-[10px] font-semibold tracking-widest uppercase text-[var(--color-primary)] font-[var(--font-heading)]">
+      <span className="absolute top-3 right-3 text-[10px] font-semibold tracking-widest uppercase text-[var(--color-primary)] font-heading">
         AI
       </span>
       {children}

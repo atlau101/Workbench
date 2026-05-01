@@ -137,7 +137,7 @@ export default async function StudentAssignmentsPage() {
 
                   <span
                     className={[
-                      "shrink-0 inline-flex items-center rounded-full px-2.5 py-0.5 font-[var(--font-heading)] text-xs font-semibold tracking-wide",
+                      "shrink-0 inline-flex items-center rounded-full px-2.5 py-0.5 font-heading text-xs font-semibold tracking-wide",
                       badge.className,
                     ].join(" ")}
                   >

@@ -39,7 +39,7 @@ export default async function InstructorAttemptPage({
             </span>
             Back to assignment
           </Link>
-          <h1 className="font-[var(--font-heading)] text-[40px] leading-[1.2] font-semibold text-[var(--color-on-background)]">
+          <h1 className="font-heading text-[40px] leading-[1.2] font-semibold text-[var(--color-on-background)]">
             Review: {bundle.studentLabel}
           </h1>
           <p className="mt-2 text-[18px] leading-[1.6] text-[var(--color-on-surface-variant)]">

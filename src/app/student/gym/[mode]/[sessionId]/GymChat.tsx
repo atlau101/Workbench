@@ -152,7 +152,7 @@ export default function GymChat({
       <div className="border-b border-[var(--color-outline-variant)] bg-[var(--color-surface-container-low)] px-6 py-4">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <h3 className="font-[var(--font-heading)] text-[20px] font-semibold text-[var(--color-primary)]">
+            <h3 className="font-heading text-[20px] font-semibold text-[var(--color-primary)]">
               {config.label} Coach
             </h3>
             <p className="mt-1 text-sm text-[var(--color-on-surface-variant)]">
@@ -174,7 +174,7 @@ export default function GymChat({
         {/* Locked/welcome state */}
         {!hasMessages ? (
           <div className="flex gap-4 py-3">
-            <span className="w-8 shrink-0 text-right font-[var(--font-heading)] text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)] pt-1">
+            <span className="w-8 shrink-0 text-right font-heading text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)] pt-1">
               AI
             </span>
             <p className="flex-1 text-[15px] leading-7 text-[var(--color-on-surface)]">
@@ -189,7 +189,7 @@ export default function GymChat({
           <div key={message.id} className="flex gap-4 py-3">
             <span
               className={[
-                "w-8 shrink-0 text-right font-[var(--font-heading)] text-[10px] font-semibold uppercase tracking-widest pt-1",
+                "w-8 shrink-0 text-right font-heading text-[10px] font-semibold uppercase tracking-widest pt-1",
                 message.role === "user"
                   ? "text-[var(--color-on-surface-variant)]"
                   : "text-[var(--color-primary)]",

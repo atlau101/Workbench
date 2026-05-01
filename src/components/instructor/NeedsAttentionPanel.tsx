@@ -10,19 +10,16 @@ export default function NeedsAttentionPanel({
   items,
 }: NeedsAttentionPanelProps) {
   return (
-    <div className="bg-[var(--color-surface-container-lowest)] border border-[var(--color-surface-variant)] rounded-xl shadow-sm flex flex-col h-full">
-      <div className="p-6 border-b border-[var(--color-surface-variant)] flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="material-symbols-outlined text-[var(--color-secondary-container)]">
-            priority_high
+    <div className="bg-[var(--color-surface-container-lowest)] border border-[var(--color-outline-variant)] rounded-xl overflow-hidden flex flex-col h-full">
+      <div className="px-6 py-4 border-b border-[var(--color-outline-variant)] bg-[var(--color-surface-container-low)] flex items-center justify-between">
+        <h3 className="font-heading text-sm font-semibold text-[var(--color-on-surface)]">
+          Needs Attention
+        </h3>
+        {items.length > 0 && (
+          <span className="font-heading text-[11px] font-semibold tracking-[0.05em] tabular bg-[var(--color-error-container)] text-[var(--color-on-error-container)] px-2 py-0.5 rounded-full">
+            {items.length}
           </span>
-          <h3 className="text-[24px] leading-[1.4] font-medium text-[var(--color-on-background)]">
-            Needs Attention
-          </h3>
-        </div>
-        <span className="bg-[var(--color-error-container)] text-[var(--color-on-error-container)] text-xs font-bold px-2 py-0.5 rounded-full">
-          {items.length}
-        </span>
+        )}
       </div>
 
       {items.length === 0 ? (
@@ -35,26 +32,26 @@ export default function NeedsAttentionPanel({
           />
         </div>
       ) : (
-        <div className="divide-y divide-[var(--color-surface-variant)]">
+        <div className="divide-y divide-[var(--color-outline-variant)] overflow-y-auto flex-1">
           {items.map((item) => (
             <Link
               key={item.attemptId}
               href={`/instructor/attempts/${item.attemptId}`}
-              className="block p-5 transition-colors hover:bg-[var(--color-surface-container-low)]"
+              className="block px-5 py-4 transition-colors hover:bg-[var(--color-surface-container-low)]"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-primary)]">
+                  <p className="font-heading text-[11px] font-semibold tracking-[0.05em] uppercase text-[var(--color-primary)] mb-1">
                     {item.studentLabel}
                   </p>
-                  <p className="mt-1 text-sm font-medium text-[var(--color-on-surface)] line-clamp-2">
+                  <p className="text-sm font-medium text-[var(--color-on-surface)] line-clamp-2 leading-snug">
                     {item.assignmentTitle}
                   </p>
-                  <p className="mt-2 text-sm text-[var(--color-on-surface-variant)] line-clamp-3">
+                  <p className="mt-1.5 text-xs text-[var(--color-on-surface-variant)] line-clamp-2 leading-relaxed">
                     {item.reason}
                   </p>
                 </div>
-                <span className="material-symbols-outlined text-[var(--color-outline)]">
+                <span className="material-symbols-outlined text-[18px] text-[var(--color-outline)] shrink-0 mt-0.5">
                   chevron_right
                 </span>
               </div>

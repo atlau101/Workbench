@@ -17,7 +17,7 @@ export default function StatsStrip({ items }: StatsStripProps) {
           <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-on-surface-variant)]">
             {item.label}
           </p>
-          <p className="mt-3 font-[var(--font-heading)] text-[32px] font-semibold text-[var(--color-on-surface)]">
+          <p className="mt-3 font-heading text-[32px] font-semibold text-[var(--color-on-surface)]">
             {item.value}
           </p>
         </Card>

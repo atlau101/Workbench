@@ -89,7 +89,7 @@ export default function ReflectPhase({
       <SandboxArea className="p-8 shadow-sm">
         <div className="flex items-center justify-between border-b border-[var(--color-outline-variant)] pb-4">
           <div>
-            <h2 className="font-[var(--font-heading)] text-[24px] leading-[1.4] font-medium text-[var(--color-on-surface)]">
+            <h2 className="font-heading text-[24px] leading-[1.4] font-medium text-[var(--color-on-surface)]">
               Initial Reflection Gate
             </h2>
             <p className="mt-2 text-sm text-[var(--color-on-surface-variant)]">
@@ -104,7 +104,7 @@ export default function ReflectPhase({
             const response = responses.find((item) => item.prompt_id === prompt.id);
             return (
               <div key={prompt.id} className="space-y-3">
-                <label className="block font-[var(--font-heading)] text-[18px] font-medium text-[var(--color-on-surface)]">
+                <label className="block font-heading text-[18px] font-medium text-[var(--color-on-surface)]">
                   {prompt.text}
                 </label>
                 <textarea
@@ -151,7 +151,7 @@ export default function ReflectPhase({
         {/* Word count progress */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <span className="font-[var(--font-heading)] text-[10px] font-semibold uppercase tracking-widest text-[var(--color-on-surface-variant)]">
+            <span className="font-heading text-[10px] font-semibold uppercase tracking-widest text-[var(--color-on-surface-variant)]">
               Word Target
             </span>
             <span className="text-sm font-semibold text-[var(--color-on-surface)]">
@@ -179,7 +179,7 @@ export default function ReflectPhase({
 
         {/* What happens next */}
         <div className="space-y-1.5">
-          <span className="font-[var(--font-heading)] text-[10px] font-semibold uppercase tracking-widest text-[var(--color-on-surface-variant)]">
+          <span className="font-heading text-[10px] font-semibold uppercase tracking-widest text-[var(--color-on-surface-variant)]">
             What happens next
           </span>
           <p className="text-sm leading-6 text-[var(--color-on-surface-variant)]">
@@ -192,7 +192,7 @@ export default function ReflectPhase({
           <>
             <div className="border-t border-[var(--color-outline-variant)]" />
             <div className="space-y-1.5">
-              <span className="font-[var(--font-heading)] text-[10px] font-semibold uppercase tracking-widest text-[var(--color-on-surface-variant)]">
+              <span className="font-heading text-[10px] font-semibold uppercase tracking-widest text-[var(--color-on-surface-variant)]">
                 Instructor Note
               </span>
               <p className="text-sm leading-6 text-[var(--color-on-surface-variant)]">

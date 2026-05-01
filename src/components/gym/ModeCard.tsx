@@ -35,7 +35,7 @@ export default function ModeCard({ mode, featured = false }: ModeCardProps) {
 
         <div className="mt-6 space-y-3">
           <div>
-            <h3 className="font-[var(--font-heading)] text-[24px] font-semibold text-[var(--color-on-surface)]">
+            <h3 className="font-heading text-[24px] font-semibold text-[var(--color-on-surface)]">
               {config.label}
             </h3>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--color-on-surface-variant)]">

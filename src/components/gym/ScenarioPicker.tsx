@@ -33,7 +33,7 @@ export default function ScenarioPicker({ mode, scenarios }: ScenarioPickerProps)
         <div className="flex items-start justify-between gap-4">
           <div>
             <PillTag color="amber">{config.badge}</PillTag>
-            <h3 className="mt-4 font-[var(--font-heading)] text-[24px] font-semibold text-[var(--color-on-surface)]">
+            <h3 className="mt-4 font-heading text-[24px] font-semibold text-[var(--color-on-surface)]">
               Bring Your Own Topic
             </h3>
             <p className="mt-2 text-sm leading-6 text-[var(--color-on-surface-variant)]">
@@ -73,7 +73,7 @@ export default function ScenarioPicker({ mode, scenarios }: ScenarioPickerProps)
       <div className="space-y-4">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <h3 className="font-[var(--font-heading)] text-[24px] font-semibold text-[var(--color-on-surface)]">
+            <h3 className="font-heading text-[24px] font-semibold text-[var(--color-on-surface)]">
               Curated Scenarios
             </h3>
             <p className="mt-1 text-sm leading-6 text-[var(--color-on-surface-variant)]">
@@ -118,7 +118,7 @@ export default function ScenarioPicker({ mode, scenarios }: ScenarioPickerProps)
                     <PillTag color="neutral">{scenario.discipline}</PillTag>
                     <PillTag color="neutral">{scenario.difficulty}</PillTag>
                   </div>
-                  <h4 className="mt-4 font-[var(--font-heading)] text-[18px] font-medium text-[var(--color-on-surface)]">
+                  <h4 className="mt-4 font-heading text-[18px] font-medium text-[var(--color-on-surface)]">
                     {scenario.title}
                   </h4>
                   <p className="mt-2 text-sm leading-6 text-[var(--color-on-surface-variant)]">

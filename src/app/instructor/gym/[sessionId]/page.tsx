@@ -50,7 +50,7 @@ export default async function InstructorGymSessionPage({
             <span className="material-symbols-outlined text-[16px]">arrow_back</span>
             All gym sessions
           </Link>
-          <h1 className="font-[var(--font-heading)] text-[40px] leading-[1.2] font-semibold text-[var(--color-on-background)]">
+          <h1 className="font-heading text-[40px] leading-[1.2] font-semibold text-[var(--color-on-background)]">
             {studentLabel}
           </h1>
           {studentEmail && studentEmail !== studentLabel && (
@@ -58,7 +58,7 @@ export default async function InstructorGymSessionPage({
           )}
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
             <span className="material-symbols-outlined text-[14px] text-[var(--color-primary)]">{config.icon}</span>
             {config.label}
           </span>
@@ -80,7 +80,7 @@ export default async function InstructorGymSessionPage({
         <div className="flex items-start gap-3 px-5 py-4 rounded-xl border border-[var(--color-outline-variant)] bg-[var(--color-surface-container-low)]">
           <span className="material-symbols-outlined text-[20px] text-[var(--color-primary)] mt-0.5">topic</span>
           <div>
-            <p className="font-[var(--font-heading)] text-[11px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-0.5">
+            <p className="font-heading text-[11px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-0.5">
               {scenario ? "Scenario" : "Custom Topic"}
             </p>
             <p className="text-[var(--color-on-surface)] text-sm leading-[1.6]">{topic}</p>
@@ -94,7 +94,7 @@ export default async function InstructorGymSessionPage({
       {/* Diagnostic strip */}
       <div className="grid grid-cols-3 gap-4">
         <div className="rounded-xl border border-[var(--color-surface-variant)] bg-[var(--color-surface-container-lowest)] p-4">
-          <p className="font-[var(--font-heading)] text-[11px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
+          <p className="font-heading text-[11px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
             Context Set
           </p>
           <p className="text-[24px] font-semibold text-[var(--color-on-background)]">
@@ -103,7 +103,7 @@ export default async function InstructorGymSessionPage({
           </p>
         </div>
         <div className="rounded-xl border border-[var(--color-surface-variant)] bg-[var(--color-surface-container-lowest)] p-4">
-          <p className="font-[var(--font-heading)] text-[11px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
+          <p className="font-heading text-[11px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
             Exchanges
           </p>
           <p className="text-[24px] font-semibold text-[var(--color-on-background)]">
@@ -111,7 +111,7 @@ export default async function InstructorGymSessionPage({
           </p>
         </div>
         <div className="rounded-xl border border-[var(--color-surface-variant)] bg-[var(--color-surface-container-lowest)] p-4">
-          <p className="font-[var(--font-heading)] text-[11px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
+          <p className="font-heading text-[11px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
             Duration
           </p>
           <p className="text-[24px] font-semibold text-[var(--color-on-background)]">
@@ -126,11 +126,11 @@ export default async function InstructorGymSessionPage({
         <section className="flex min-h-0 flex-col gap-4">
           <div className="flex items-center gap-2 pb-2 border-b border-[var(--color-outline-variant)] sticky top-0 z-10 bg-[var(--color-background)] pt-1">
             <span className="material-symbols-outlined text-[var(--color-primary)]">settings_suggest</span>
-            <h3 className="font-[var(--font-heading)] text-[24px] leading-[1.4] font-medium text-[var(--color-on-background)]">
+            <h3 className="font-heading text-[24px] leading-[1.4] font-medium text-[var(--color-on-background)]">
               Context Setup
             </h3>
             {!unlocked && (
-              <span className="ml-auto font-[var(--font-heading)] text-[11px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] border border-[var(--color-outline-variant)] rounded-full px-2 py-0.5">
+              <span className="ml-auto font-heading text-[11px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] border border-[var(--color-outline-variant)] rounded-full px-2 py-0.5">
                 Incomplete
               </span>
             )}
@@ -169,7 +169,7 @@ export default async function InstructorGymSessionPage({
         <section className="flex min-h-0 flex-col gap-4 lg:border-l lg:border-[var(--color-outline-variant)] lg:pl-6">
           <div className="flex items-center gap-2 pb-2 border-b border-[var(--color-outline-variant)] sticky top-0 z-10 bg-[var(--color-background)] pt-1">
             <span className="material-symbols-outlined text-[var(--color-tertiary-container)]">forum</span>
-            <h3 className="font-[var(--font-heading)] text-[24px] leading-[1.4] font-medium text-[var(--color-on-background)]">
+            <h3 className="font-heading text-[24px] leading-[1.4] font-medium text-[var(--color-on-background)]">
               Coaching Session
             </h3>
           </div>
@@ -201,7 +201,7 @@ export default async function InstructorGymSessionPage({
                     }`}
                   >
                     {message.role === "assistant" && (
-                      <span className="absolute top-2 right-3 font-[var(--font-heading)] text-[10px] font-semibold tracking-[0.05em] uppercase text-[var(--color-primary)]">
+                      <span className="absolute top-2 right-3 font-heading text-[10px] font-semibold tracking-[0.05em] uppercase text-[var(--color-primary)]">
                         Coach AI
                       </span>
                     )}

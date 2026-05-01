@@ -31,7 +31,7 @@ export default function Stepper({ steps, currentStep }: StepperProps) {
               >
                 {done ? "✓" : i + 1}
               </div>
-              <span className={`text-xs font-[var(--font-heading)] tracking-wide ${active ? "text-[var(--color-on-surface)]" : "text-[var(--color-on-surface-variant)]"}`}>
+              <span className={`text-xs font-heading tracking-wide ${active ? "text-[var(--color-on-surface)]" : "text-[var(--color-on-surface-variant)]"}`}>
                 {label}
               </span>
             </div>

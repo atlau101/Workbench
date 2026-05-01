@@ -129,7 +129,7 @@ export default async function StudentDashboardPage() {
       <div className="space-y-8">
         {/* Welcome hero */}
         <section className="rounded-2xl border border-[var(--color-primary)]/20 bg-[color-mix(in_srgb,var(--color-primary-container)_8%,white)] p-8">
-          <h2 className="font-[var(--font-heading)] text-3xl font-bold text-[var(--color-primary)]">
+          <h2 className="font-heading text-3xl font-bold text-[var(--color-primary)]">
             Hello, {displayName}!
           </h2>
           <p className="mt-2 text-[var(--color-on-surface-variant)]">
@@ -142,7 +142,7 @@ export default async function StudentDashboardPage() {
         {/* Assignments timeline */}
         <section>
           <div className="mb-5 flex items-center justify-between">
-            <h3 className="font-[var(--font-heading)] text-lg font-semibold text-[var(--color-on-surface)]">
+            <h3 className="font-heading text-lg font-semibold text-[var(--color-on-surface)]">
               Assignments
             </h3>
             <Link
@@ -184,11 +184,11 @@ export default async function StudentDashboardPage() {
                       <div className="flex items-start justify-between gap-4">
                         <div className="min-w-0">
                           <span
-                            className={`inline-block rounded px-2 py-0.5 font-[var(--font-heading)] text-xs font-semibold uppercase tracking-[0.05em] ${colors.badge}`}
+                            className={`inline-block rounded px-2 py-0.5 font-heading text-xs font-semibold uppercase tracking-[0.05em] ${colors.badge}`}
                           >
                             {assignment.courseName}
                           </span>
-                          <h4 className="mt-2 font-[var(--font-heading)] font-semibold text-[var(--color-on-surface)]">
+                          <h4 className="mt-2 font-heading font-semibold text-[var(--color-on-surface)]">
                             {assignment.title}
                           </h4>
                           <div className="mt-1.5 flex items-center gap-2">
@@ -224,7 +224,7 @@ export default async function StudentDashboardPage() {
       <aside className="space-y-6">
         <section>
           <div className="mb-4 flex items-center justify-between">
-            <h3 className="font-[var(--font-heading)] text-base font-semibold text-[var(--color-on-surface)]">
+            <h3 className="font-heading text-base font-semibold text-[var(--color-on-surface)]">
               Active Courses
             </h3>
             <Link
@@ -262,7 +262,7 @@ export default async function StudentDashboardPage() {
                       </span>
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="truncate font-[var(--font-heading)] text-sm font-bold text-[var(--color-on-surface)]">
+                      <p className="truncate font-heading text-sm font-bold text-[var(--color-on-surface)]">
                         {ec.course.name}
                       </p>
                       <p className="text-xs text-[var(--color-on-surface-variant)]">

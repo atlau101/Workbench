@@ -1,7 +1,7 @@
 interface MetricCardProps {
   label: string;
   value: string | number;
-  icon: string;
+  icon?: string;
   subtext?: string;
   variant?: "default" | "alert";
 }
@@ -9,49 +9,40 @@ interface MetricCardProps {
 export default function MetricCard({
   label,
   value,
-  icon,
   subtext,
   variant = "default",
 }: MetricCardProps) {
   const isAlert = variant === "alert";
+
   return (
     <div
-      className={`rounded-xl border p-6 transition-colors relative overflow-hidden ${
+      className={[
+        "rounded-xl p-5 border-t-2",
         isAlert
-          ? "bg-[var(--color-error-container)]/20 border-[var(--color-error-container)]"
-          : "bg-[var(--color-surface-container-lowest)] border-[var(--color-surface-variant)]"
-      }`}
+          ? "bg-[var(--color-error-container)]/10 border-t-[var(--color-error)]"
+          : "bg-[var(--color-surface-container-low)] border-t-[var(--color-primary)]",
+      ].join(" ")}
     >
-      <div className="flex justify-between items-start mb-4">
-        <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
-          {label}
-        </p>
-        <div
-          className={`w-8 h-8 rounded-full flex items-center justify-center ${
+      <p className="font-heading text-[11px] font-semibold tracking-[0.06em] uppercase text-[var(--color-on-surface-variant)] mb-3">
+        {label}
+      </p>
+      <div className="flex items-baseline justify-between gap-2">
+        <span
+          className={[
+            "tabular font-heading text-3xl font-semibold leading-none",
             isAlert
-              ? "bg-[var(--color-secondary-container)]/20 text-[var(--color-secondary-container)]"
-              : "bg-[var(--color-primary)]/10 text-[var(--color-primary)]"
-          }`}
-        >
-          <span className="material-symbols-outlined">{icon}</span>
-        </div>
-      </div>
-      <div className="flex items-baseline gap-2">
-        <h3
-          className={`text-[40px] leading-[1.2] font-semibold ${
-            isAlert
-              ? "text-[var(--color-secondary-container)]"
-              : "text-[var(--color-on-background)]"
-          }`}
+              ? "text-[var(--color-error)]"
+              : "text-[var(--color-on-surface)]",
+          ].join(" ")}
         >
           {value}
-        </h3>
+        </span>
+        {subtext && (
+          <span className="text-sm text-[var(--color-on-surface-variant)] text-right leading-snug">
+            {subtext}
+          </span>
+        )}
       </div>
-      {subtext && (
-        <p className="text-sm text-[var(--color-on-surface-variant)] mt-2">
-          {subtext}
-        </p>
-      )}
     </div>
   );
 }

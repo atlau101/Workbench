@@ -21,7 +21,7 @@ export default function RecentActivityList({ items }: RecentActivityListProps) {
     <Card className="p-6">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h2 className="font-[var(--font-heading)] text-[22px] font-semibold text-[var(--color-on-surface)]">
+          <h2 className="font-heading text-[22px] font-semibold text-[var(--color-on-surface)]">
             Recent activity
           </h2>
           <p className="mt-2 text-sm text-[var(--color-on-surface-variant)]">

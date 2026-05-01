@@ -24,7 +24,7 @@ function formatDuration(startedAt: string, completedAt: string | null): string {
 function ModeBadge({ mode }: { mode: GymMode }) {
   const config = GYM_MODES[mode];
   return (
-    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] font-[var(--font-heading)] text-[11px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[var(--color-surface-container)] border border-[var(--color-outline-variant)] font-heading text-[11px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
       <span className="material-symbols-outlined text-[12px] text-[var(--color-primary)]">
         {config.icon}
       </span>
@@ -100,13 +100,13 @@ export default async function InstructorGymPage() {
             <table className="w-full text-left text-[15px]">
               <thead>
                 <tr className="bg-[var(--color-surface-container-lowest)] border-b border-[var(--color-surface-variant)] text-sm text-[var(--color-on-surface-variant)]">
-                  <th className="py-4 px-6 font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase">Student</th>
-                  <th className="py-4 px-6 font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase">Mode</th>
-                  <th className="py-4 px-6 font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase">Topic</th>
-                  <th className="py-4 px-6 font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase">Exchanges</th>
-                  <th className="py-4 px-6 font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase">Duration</th>
-                  <th className="py-4 px-6 font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase">Started</th>
-                  <th className="py-4 px-6 font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase">Status</th>
+                  <th className="py-4 px-6 font-heading text-[12px] font-semibold tracking-[0.05em] uppercase">Student</th>
+                  <th className="py-4 px-6 font-heading text-[12px] font-semibold tracking-[0.05em] uppercase">Mode</th>
+                  <th className="py-4 px-6 font-heading text-[12px] font-semibold tracking-[0.05em] uppercase">Topic</th>
+                  <th className="py-4 px-6 font-heading text-[12px] font-semibold tracking-[0.05em] uppercase">Exchanges</th>
+                  <th className="py-4 px-6 font-heading text-[12px] font-semibold tracking-[0.05em] uppercase">Duration</th>
+                  <th className="py-4 px-6 font-heading text-[12px] font-semibold tracking-[0.05em] uppercase">Started</th>
+                  <th className="py-4 px-6 font-heading text-[12px] font-semibold tracking-[0.05em] uppercase">Status</th>
                   <th className="py-4 px-6"></th>
                 </tr>
               </thead>

@@ -27,7 +27,7 @@ export default async function InstructorDashboardPage() {
             Instructor Overview
           </h2>
           <div className="flex items-center gap-4 mt-1">
-            <p className="font-[Plus Jakarta Sans] text-[var(--color-on-surface-variant)]">
+            <p className="font-body text-[var(--color-on-surface-variant)]">
               {user.email}
             </p>
             {assignments.length > 0 && (
@@ -51,7 +51,7 @@ export default async function InstructorDashboardPage() {
         </div>
         <Link
           href="/instructor/assignments/new"
-          className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase hover:bg-[var(--color-primary-container)] transition-colors flex items-center gap-2"
+          className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg font-heading text-[12px] font-semibold tracking-[0.05em] uppercase hover:bg-[var(--color-primary-container)] transition-colors flex items-center gap-2"
         >
           <span className="material-symbols-outlined text-[18px]">add</span>
           New Assignment
@@ -71,7 +71,7 @@ export default async function InstructorDashboardPage() {
               </h3>
               <Link
                 href="/instructor/assignments"
-                className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-primary)] hover:text-[var(--color-primary-container)] transition-colors"
+                className="font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-primary)] hover:text-[var(--color-primary-container)] transition-colors"
               >
                 View All
               </Link>

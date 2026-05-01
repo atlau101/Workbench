@@ -64,7 +64,7 @@ export default async function AssignmentDetailPage({
 
       {/* Prompt */}
       <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-6">
-        <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-3">
+        <p className="font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-3">
           Assignment Prompt
         </p>
         <p className="text-[var(--color-on-surface)] leading-relaxed whitespace-pre-wrap">
@@ -75,7 +75,7 @@ export default async function AssignmentDetailPage({
       {/* Config summary */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-5">
-          <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
+          <p className="font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
             AI Message Limit
           </p>
           <p className="text-[24px] font-medium text-[var(--color-on-background)]">
@@ -87,7 +87,7 @@ export default async function AssignmentDetailPage({
           </p>
         </div>
         <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-5">
-          <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
+          <p className="font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
             Scaffolding Prompts
           </p>
           <p className="text-[24px] font-medium text-[var(--color-on-background)]">
@@ -101,7 +101,7 @@ export default async function AssignmentDetailPage({
       </div>
 
       <div className="rounded-xl border border-[var(--color-surface-variant)] bg-[var(--color-surface-container-lowest)] p-5">
-        <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
+        <p className="font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
           AI Unlock Threshold
         </p>
         <p className="text-[var(--color-on-surface)]">Min words: {assignment.minWordCount}</p>
@@ -110,7 +110,7 @@ export default async function AssignmentDetailPage({
       {/* Progressive stage instructions */}
       {assignment.gate_level === "progressive" && assignment.stage_instructions && (
         <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-6">
-          <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-4">
+          <p className="font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-4">
             Progressive Stage Instructions
           </p>
           {(
@@ -135,7 +135,7 @@ export default async function AssignmentDetailPage({
       {/* Scaffolding list */}
       {assignment.scaffolding_prompts.length > 0 && (
         <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-6">
-          <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-3">
+          <p className="font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-3">
             Scaffolding Prompts
           </p>
           <ul className="space-y-2">
@@ -156,7 +156,7 @@ export default async function AssignmentDetailPage({
 
       {/* Access link */}
       <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-6">
-        <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-3">
+        <p className="font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-3">
           Student Access Link
         </p>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">

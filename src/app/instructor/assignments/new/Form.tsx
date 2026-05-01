@@ -92,7 +92,7 @@ export default function NewAssignmentForm({
             </h2>
             <div className="space-y-5">
               <div>
-                <label className="block font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-2">
+                <label className="block font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-2">
                   Assignment Title
                 </label>
                 <input
@@ -105,7 +105,7 @@ export default function NewAssignmentForm({
                 />
               </div>
               <div>
-                <label className="block font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-2">
+                <label className="block font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-2">
                   Description / Prompt
                 </label>
                 <textarea
@@ -118,7 +118,7 @@ export default function NewAssignmentForm({
                 />
               </div>
               <div>
-                <label className="block font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-2">
+                <label className="block font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-2">
                   Course
                 </label>
                 <select
@@ -160,7 +160,7 @@ export default function NewAssignmentForm({
             />
 
             <div className="mt-6">
-              <label className="block font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-2">
+              <label className="block font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-2">
                 AI Message Limit — {aiMsgLimit} messages per student
               </label>
               <input
@@ -181,7 +181,7 @@ export default function NewAssignmentForm({
 
           {/* Section 3: Scaffolding */}
           <section className="bg-[var(--color-surface-container-low)] rounded-xl border border-[var(--color-outline-variant)]/30 p-6 relative">
-            <div className="absolute top-4 right-4 bg-[var(--color-primary-container)] text-[var(--color-on-primary-container)] font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase px-2 py-1 rounded flex items-center gap-1 opacity-80">
+            <div className="absolute top-4 right-4 bg-[var(--color-primary-container)] text-[var(--color-on-primary-container)] font-heading text-[12px] font-semibold tracking-[0.05em] uppercase px-2 py-1 rounded flex items-center gap-1 opacity-80">
               <span className="material-symbols-outlined" style={{ fontSize: 14 }}>
                 smart_toy
               </span>
@@ -247,7 +247,7 @@ export default function NewAssignmentForm({
             </p>
             {disciplines.map((disc) => (
               <div key={disc} className="mb-3">
-                <p className="font-[var(--font-heading)] text-[11px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1.5">
+                <p className="font-heading text-[11px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1.5">
                   {disc}
                 </p>
                 {templates

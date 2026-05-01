@@ -150,7 +150,7 @@ export default function AIAssistPhase({
       <SandboxArea className="overflow-hidden">
         <div className="border-b border-[var(--color-outline-variant)] bg-[var(--color-surface-container-low)] px-6 py-4">
           <div className="flex items-center justify-between">
-            <h2 className="font-[var(--font-heading)] text-[18px] font-medium text-[var(--color-on-surface)]">
+            <h2 className="font-heading text-[18px] font-medium text-[var(--color-on-surface)]">
               Your Reflection
             </h2>
             <PillTag color="neutral">Locked</PillTag>
@@ -177,7 +177,7 @@ export default function AIAssistPhase({
         <div className="border-b border-[var(--color-outline-variant)] bg-[var(--color-surface-container-low)] px-6 py-4">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <h2 className="font-[var(--font-heading)] text-[18px] font-medium text-[var(--color-primary)]">
+              <h2 className="font-heading text-[18px] font-medium text-[var(--color-primary)]">
                 Thinking Partner
               </h2>
               <p className="mt-1 text-sm text-[var(--color-on-surface-variant)]">
@@ -202,7 +202,7 @@ export default function AIAssistPhase({
           {/* Welcome note */}
           {!hasMessages ? (
             <div className="flex gap-4 py-3">
-              <span className="w-8 shrink-0 text-right font-[var(--font-heading)] text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)] pt-1">
+              <span className="w-8 shrink-0 text-right font-heading text-[10px] font-semibold uppercase tracking-widest text-[var(--color-primary)] pt-1">
                 AI
               </span>
               <p className="flex-1 text-[15px] leading-7 text-[var(--color-on-surface)]">
@@ -215,7 +215,7 @@ export default function AIAssistPhase({
             <div key={message.id} className="flex gap-4 py-3">
               <span
                 className={[
-                  "w-8 shrink-0 text-right font-[var(--font-heading)] text-[10px] font-semibold uppercase tracking-widest pt-1",
+                  "w-8 shrink-0 text-right font-heading text-[10px] font-semibold uppercase tracking-widest pt-1",
                   message.role === "user"
                     ? "text-[var(--color-on-surface-variant)]"
                     : "text-[var(--color-primary)]",

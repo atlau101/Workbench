@@ -42,7 +42,7 @@ export default async function AssignmentAccessPage({
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--color-primary)]/10 text-[var(--color-primary)] mb-4">
             <span className="material-symbols-outlined text-2xl">menu_book</span>
           </div>
-          <h1 className="text-[30px] leading-[1.3] font-semibold text-[var(--color-on-background)] font-[var(--font-heading)]">
+          <h1 className="text-[30px] leading-[1.3] font-semibold text-[var(--color-on-background)] font-heading">
             {assignment.title}
           </h1>
           <div className="mt-2 inline-flex items-center gap-2">

@@ -16,7 +16,7 @@ export default function PillTag({ color = "neutral", className = "", children, .
   return (
     <span
       className={[
-        "inline-flex items-center px-2.5 py-0.5 rounded-[var(--radius-full)] text-xs font-semibold font-[var(--font-heading)] tracking-wide",
+        "inline-flex items-center px-2.5 py-0.5 rounded-[var(--radius-full)] text-xs font-semibold font-heading tracking-wide",
         colorClasses[color],
         className,
       ].join(" ")}

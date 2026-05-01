@@ -81,7 +81,7 @@ export default function Scaffolding({
     <Card className="p-6">
       <div className="flex items-center justify-between gap-4 border-b border-[var(--color-outline-variant)] pb-4">
         <div>
-          <h3 className="font-[var(--font-heading)] text-[22px] font-semibold text-[var(--color-on-surface)]">
+          <h3 className="font-heading text-[22px] font-semibold text-[var(--color-on-surface)]">
             Scaffolding
           </h3>
           <p className="mt-2 text-sm leading-6 text-[var(--color-on-surface-variant)]">
@@ -99,7 +99,7 @@ export default function Scaffolding({
           return (
             <div key={prompt.id} className="space-y-3">
               <div className="flex items-center justify-between gap-4">
-                <label className="font-[var(--font-heading)] text-[18px] font-medium text-[var(--color-on-surface)]">
+                <label className="font-heading text-[18px] font-medium text-[var(--color-on-surface)]">
                   {prompt.text}
                 </label>
                 <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-on-surface-variant)]">

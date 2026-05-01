@@ -25,7 +25,7 @@ export default function ReflectionColumn({
         <span className="material-symbols-outlined text-[var(--color-primary)]">
           flag
         </span>
-        <h3 className="font-[var(--font-heading)] text-[24px] leading-[1.4] font-medium text-[var(--color-on-background)]">
+        <h3 className="font-heading text-[24px] leading-[1.4] font-medium text-[var(--color-on-background)]">
           Initial Reflection
         </h3>
       </div>
@@ -41,7 +41,7 @@ export default function ReflectionColumn({
           responses.map((response, index) => (
             <SandboxArea key={response.id} className="p-5">
               <div className="flex items-center justify-between gap-3 mb-3">
-                <span className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-primary)]">
+                <span className="font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-primary)]">
                   Student Pre-Work
                 </span>
                 <span className="text-[12px] text-[var(--color-outline)]">

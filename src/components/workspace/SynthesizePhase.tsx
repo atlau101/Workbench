@@ -118,7 +118,7 @@ export default function SynthesizePhase({
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h2 className="font-[var(--font-heading)] text-[30px] leading-[1.3] font-semibold text-[var(--color-on-surface)]">
+          <h2 className="font-heading text-[30px] leading-[1.3] font-semibold text-[var(--color-on-surface)]">
             Synthesize Your Final Draft
           </h2>
           <p className="mt-2 text-sm text-[var(--color-on-surface-variant)]">

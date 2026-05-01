@@ -60,7 +60,7 @@ export default function GateLevelPicker({
           <div>
             <label
               htmlFor="min_word_count"
-              className="block font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]"
+              className="block font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]"
             >
               Words required before AI unlocks
             </label>

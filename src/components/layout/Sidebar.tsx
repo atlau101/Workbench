@@ -58,7 +58,11 @@ const navItemsByRole: Record<Role, NavItem[]> = {
 function isActive(pathname: string, item: NavItem) {
   const prefix = item.matchPrefix ?? item.href;
 
-  if (prefix.endsWith("/dashboard") || prefix.endsWith("/gym") || prefix.endsWith("/profile")) {
+  if (
+    prefix.endsWith("/dashboard") ||
+    prefix.endsWith("/gym") ||
+    prefix.endsWith("/profile")
+  ) {
     return pathname === item.href;
   }
 
@@ -77,41 +81,45 @@ export default function Sidebar({ role }: SidebarProps) {
         aria-label="Close navigation menu"
         onClick={closeSidebar}
         className={[
-          "fixed inset-0 z-40 bg-[var(--color-on-surface)]/40 transition-opacity md:hidden",
+          "fixed inset-0 z-40 bg-[var(--color-on-surface)]/40 backdrop-blur-sm transition-opacity md:hidden",
           open ? "opacity-100" : "pointer-events-none opacity-0",
         ].join(" ")}
       />
 
       <aside
         className={[
-          "fixed inset-y-0 left-0 z-50 flex w-[260px] flex-col border-r border-[var(--color-outline-variant)] bg-[var(--color-surface-container-low)] p-4 font-[var(--font-heading)] text-sm transition-transform duration-200 ease-out",
+          "fixed inset-y-0 left-0 z-50 flex w-[260px] flex-col border-r border-[var(--color-outline-variant)] bg-[var(--color-surface-container-low)] transition-transform duration-200 ease-out",
           open ? "translate-x-0" : "-translate-x-full",
           "md:translate-x-0",
         ].join(" ")}
         aria-label={`${role} navigation`}
       >
-        <div className="mb-6 flex items-center gap-3 px-4 py-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--color-primary-container)] text-[var(--color-on-primary-container)]">
-            <span className="material-symbols-outlined">menu_book</span>
-          </div>
-          <div>
-            <h1 className="text-lg font-black text-[var(--color-primary)]">Workbench</h1>
-            <p className="text-xs text-[var(--color-on-surface-variant)] opacity-70">Educational App</p>
-          </div>
+        {/* Wordmark */}
+        <div className="px-6 py-5 border-b border-[var(--color-outline-variant)]">
+          <Link href={role === "instructor" ? "/instructor/dashboard" : "/student/dashboard"} className="flex items-center gap-2.5 group">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-primary)] text-[var(--color-on-primary)] shrink-0">
+              <span className="material-symbols-outlined text-[18px] fill">menu_book</span>
+            </div>
+            <span className="font-heading text-base font-semibold text-[var(--color-on-surface)] group-hover:text-[var(--color-primary)] transition-colors">
+              Workbench
+            </span>
+          </Link>
         </div>
 
-        {role === "instructor" ? (
-          <Link
-            href="/instructor/assignments/new"
-            onClick={closeSidebar}
-            className="mb-8 flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-primary)] px-4 py-3 font-semibold text-[var(--color-on-primary)] shadow-sm transition-opacity hover:opacity-90"
-          >
-            <span className="material-symbols-outlined">add</span>
-            New Assignment
-          </Link>
-        ) : null}
+        {role === "instructor" && (
+          <div className="px-4 pt-4">
+            <Link
+              href="/instructor/assignments/new"
+              onClick={closeSidebar}
+              className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-primary)] px-4 py-2.5 font-heading text-sm font-semibold text-[var(--color-on-primary)] transition-opacity hover:opacity-90"
+            >
+              <span className="material-symbols-outlined text-[18px]">add</span>
+              New Assignment
+            </Link>
+          </div>
+        )}
 
-        <nav className="flex-1 space-y-1">
+        <nav className="flex-1 space-y-0.5 overflow-y-auto px-3 py-4" aria-label="Main navigation">
           {navItems.map((item) => {
             const active = isActive(pathname, item);
 
@@ -122,15 +130,13 @@ export default function Sidebar({ role }: SidebarProps) {
                 onClick={closeSidebar}
                 aria-current={active ? "page" : undefined}
                 className={[
-                  "flex items-center gap-3 rounded-lg px-4 py-3 transition-all",
+                  "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all font-heading font-medium",
                   active
-                    ? "bg-[var(--color-surface-container)] font-semibold text-[var(--color-primary)]"
+                    ? "bg-[var(--color-primary)]/10 text-[var(--color-primary)]"
                     : "text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-container)] hover:text-[var(--color-on-surface)]",
                 ].join(" ")}
               >
-                <span
-                  className={active ? "material-symbols-outlined fill" : "material-symbols-outlined"}
-                >
+                <span className={active ? "material-symbols-outlined fill text-[20px]" : "material-symbols-outlined text-[20px]"}>
                   {item.icon}
                 </span>
                 {item.label}
@@ -139,21 +145,21 @@ export default function Sidebar({ role }: SidebarProps) {
           })}
         </nav>
 
-        <div className="mt-auto space-y-1 border-t border-[var(--color-outline-variant)] pt-4">
+        <div className="mt-auto space-y-0.5 border-t border-[var(--color-outline-variant)] px-3 py-3">
           <button
             type="button"
-            className="flex w-full items-center gap-3 rounded-lg px-4 py-2 text-left text-[var(--color-on-surface-variant)] transition-all hover:bg-[var(--color-surface-container)] hover:text-[var(--color-on-surface)]"
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-heading font-medium text-[var(--color-on-surface-variant)] transition-all hover:bg-[var(--color-surface-container)] hover:text-[var(--color-on-surface)]"
           >
-            <span className="material-symbols-outlined">settings</span>
+            <span className="material-symbols-outlined text-[20px]">settings</span>
             Settings
           </button>
           <form action={signOut}>
             <button
               type="submit"
               aria-label="Sign out"
-              className="flex w-full items-center gap-3 rounded-lg px-4 py-2 text-left text-[var(--color-on-surface-variant)] transition-all hover:bg-[var(--color-surface-container)] hover:text-[var(--color-on-surface)]"
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-heading font-medium text-[var(--color-on-surface-variant)] transition-all hover:bg-[var(--color-surface-container)] hover:text-[var(--color-on-surface)]"
             >
-              <span className="material-symbols-outlined">logout</span>
+              <span className="material-symbols-outlined text-[20px]">logout</span>
               Sign out
             </button>
           </form>

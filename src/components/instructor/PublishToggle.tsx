@@ -30,7 +30,7 @@ export default function PublishToggle({
 
   return (
     <div className="flex items-center gap-3">
-      <label className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
+      <label className="font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
         Visibility
       </label>
       <select
