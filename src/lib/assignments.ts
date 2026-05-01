@@ -65,6 +65,7 @@ export interface Attempt {
   gate_passed_at: string | null;
   final_draft_saved_at: string | null;
   submittedAt: string | null;
+  instructorFlagged: boolean;
 }
 
 export interface ReflectionResponse {
@@ -129,12 +130,13 @@ export function toAssignment(
 }
 
 export function toAttempt(
-  row: Record<string, unknown> & { submitted_at?: string | null }
+  row: Record<string, unknown> & { submitted_at?: string | null; instructor_flagged?: boolean | null }
 ): Attempt {
-  const { submitted_at, ...rest } = row;
+  const { submitted_at, instructor_flagged, ...rest } = row;
   return {
-    ...(rest as Omit<Attempt, "submittedAt">),
+    ...(rest as Omit<Attempt, "submittedAt" | "instructorFlagged">),
     submittedAt: submitted_at ?? null,
+    instructorFlagged: instructor_flagged ?? false,
   };
 }
 

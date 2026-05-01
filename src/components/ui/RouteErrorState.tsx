@@ -19,7 +19,7 @@ export default function RouteErrorState({
           {title}
         </h2>
         <p className="text-sm text-[var(--color-on-surface-variant)]">
-          Try again. This boundary only catches render-time and thrown route errors in this phase.
+          Something went wrong loading this page. Refresh to try again, or go back and open a different assignment.
         </p>
       </div>
       <Button type="button" onClick={reset}>

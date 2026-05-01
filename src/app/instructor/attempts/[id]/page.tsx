@@ -4,6 +4,7 @@ import { getAttemptForInstructor } from "@/app/actions/attempts";
 import ChatColumn from "@/components/instructor/process-log/ChatColumn";
 import FinalOutputColumn from "@/components/instructor/process-log/FinalOutputColumn";
 import ReflectionColumn from "@/components/instructor/process-log/ReflectionColumn";
+import FlagForFollowUpButton from "@/components/instructor/FlagForFollowUpButton";
 import PillTag from "@/components/ui/PillTag";
 
 function formatDateTime(value: string): string {
@@ -50,11 +51,17 @@ export default async function InstructorAttemptPage({
             </p>
           ) : null}
         </div>
-        {bundle.attempt.submittedAt ? (
-          <PillTag color="teal">
-            Submitted at {formatDateTime(bundle.attempt.submittedAt)}
-          </PillTag>
-        ) : null}
+        <div className="flex items-center gap-3 flex-wrap">
+          {bundle.attempt.submittedAt ? (
+            <PillTag color="teal">
+              Submitted at {formatDateTime(bundle.attempt.submittedAt)}
+            </PillTag>
+          ) : null}
+          <FlagForFollowUpButton
+            attemptId={bundle.attempt.id}
+            initialFlagged={bundle.attempt.instructorFlagged}
+          />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:min-h-[70vh]">

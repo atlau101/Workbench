@@ -1,9 +1,15 @@
 import Link from "next/link";
 import { listMyAssignments } from "@/app/actions/assignments";
+import { listMyCourses } from "@/app/actions/courses";
 import AssignmentsTable from "@/components/instructor/AssignmentsTable";
 
 export default async function InstructorAssignmentsPage() {
-  const assignments = await listMyAssignments();
+  const [assignments, courses] = await Promise.all([
+    listMyAssignments(),
+    listMyCourses(),
+  ]);
+
+  const courseNameMap = Object.fromEntries(courses.map((c) => [c.id, c.name]));
 
   return (
     <div className="space-y-6">
@@ -18,15 +24,15 @@ export default async function InstructorAssignmentsPage() {
         </div>
         <Link
           href="/instructor/assignments/new"
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white font-medium hover:bg-[var(--color-primary-container)] transition-colors shadow-sm"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white font-medium hover:bg-[var(--color-primary-container)] transition-colors"
         >
           <span className="material-symbols-outlined text-[18px]">add</span>
           New Assignment
         </Link>
       </div>
 
-      <div className="bg-[var(--color-surface-container-lowest)] border border-[var(--color-surface-variant)] rounded-xl shadow-sm overflow-hidden">
-        <AssignmentsTable assignments={assignments} />
+      <div className="bg-[var(--color-surface-container-lowest)] border border-[var(--color-surface-variant)] rounded-xl overflow-hidden">
+        <AssignmentsTable assignments={assignments} courseNameMap={courseNameMap} />
       </div>
     </div>
   );

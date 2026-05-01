@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase";
 import { listMyAssignments } from "@/app/actions/assignments";
 import { listFlaggedAttemptsForInstructor } from "@/app/actions/attempts";
-import MetricCard from "@/components/instructor/MetricCard";
 import NeedsAttentionPanel from "@/components/instructor/NeedsAttentionPanel";
 import TrendChartStub from "@/components/instructor/TrendChartStub";
 import AssignmentsTable from "@/components/instructor/AssignmentsTable";
@@ -27,46 +26,36 @@ export default async function InstructorDashboardPage() {
           <h2 className="text-[30px] leading-[1.3] font-semibold text-[var(--color-on-background)] tracking-tight">
             Instructor Overview
           </h2>
-          <p className="font-[Plus Jakarta Sans] text-[var(--color-on-surface-variant)] mt-1">
-            {user.email}
-          </p>
+          <div className="flex items-center gap-4 mt-1">
+            <p className="font-[Plus Jakarta Sans] text-[var(--color-on-surface-variant)]">
+              {user.email}
+            </p>
+            {assignments.length > 0 && (
+              <span className="text-sm text-[var(--color-on-surface-variant)]">
+                ·{" "}
+                <span className="font-medium text-[var(--color-on-surface)]">
+                  {assignments.length}
+                </span>{" "}
+                {assignments.length === 1 ? "assignment" : "assignments"}
+                {flaggedAttempts.length > 0 && (
+                  <>
+                    {" "}·{" "}
+                    <span className="font-medium text-[var(--color-error)]">
+                      {flaggedAttempts.length} flagged
+                    </span>
+                  </>
+                )}
+              </span>
+            )}
+          </div>
         </div>
         <Link
           href="/instructor/assignments/new"
-          className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase hover:bg-[var(--color-primary-container)] transition-colors flex items-center gap-2 shadow-sm"
+          className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase hover:bg-[var(--color-primary-container)] transition-colors flex items-center gap-2"
         >
           <span className="material-symbols-outlined text-[18px]">add</span>
           New Assignment
         </Link>
-      </div>
-
-      {/* Metric cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <MetricCard
-          label="Active Assignments"
-          value={assignments.length}
-          icon="assignment"
-          subtext={assignments.length === 0 ? "Create your first assignment" : undefined}
-        />
-        <MetricCard
-          label="Active Students"
-          value={0}
-          icon="groups"
-          subtext="Awaiting first submissions"
-        />
-        <MetricCard
-          label="Gate Completion Rate"
-          value="—"
-          icon="task_alt"
-          subtext="Awaiting first submissions"
-        />
-        <MetricCard
-          label="Flagged Students"
-          value={flaggedAttempts.length}
-          icon="warning"
-          variant="alert"
-          subtext={flaggedAttempts.length === 0 ? "No flags yet" : "Review low-effort attempts"}
-        />
       </div>
 
       {/* Main content grid */}

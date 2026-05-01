@@ -16,7 +16,7 @@ export default function MetricCard({
   const isAlert = variant === "alert";
   return (
     <div
-      className={`rounded-xl border p-6 shadow-sm transition-shadow hover:shadow-md relative overflow-hidden ${
+      className={`rounded-xl border p-6 transition-colors relative overflow-hidden ${
         isAlert
           ? "bg-[var(--color-error-container)]/20 border-[var(--color-error-container)]"
           : "bg-[var(--color-surface-container-lowest)] border-[var(--color-surface-variant)]"

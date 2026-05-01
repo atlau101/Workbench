@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getAssignment } from "@/app/actions/assignments";
+import { getCourse } from "@/app/actions/courses";
 import AssignmentStatusBadge from "@/components/instructor/AssignmentStatusBadge";
 import AttemptRosterTable from "@/components/instructor/AttemptRosterTable";
 import PublishToggle from "@/components/instructor/PublishToggle";
@@ -15,19 +16,34 @@ export default async function AssignmentDetailPage({
   const assignment = await getAssignment(id);
   if (!assignment) notFound();
 
+  const course = await getCourse(assignment.course_id);
+
   return (
     <div className="space-y-8 max-w-3xl">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <Link
-            href="/instructor/assignments"
-            className="text-sm text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)] flex items-center gap-1 mb-2"
-          >
-            <span className="material-symbols-outlined text-[16px]">
-              arrow_back
-            </span>
-            All assignments
-          </Link>
+          <div className="flex items-center gap-2 mb-2">
+            <Link
+              href="/instructor/assignments"
+              className="text-sm text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)] flex items-center gap-1"
+            >
+              <span className="material-symbols-outlined text-[16px]">
+                arrow_back
+              </span>
+              All assignments
+            </Link>
+            {course && (
+              <>
+                <span className="text-[var(--color-outline-variant)]">·</span>
+                <Link
+                  href={`/instructor/courses/${course.id}`}
+                  className="text-sm text-[var(--color-on-surface-variant)] hover:text-[var(--color-primary)] transition-colors"
+                >
+                  {course.name}
+                </Link>
+              </>
+            )}
+          </div>
           <h2 className="text-[30px] leading-[1.3] font-semibold text-[var(--color-on-background)]">
             {assignment.title}
           </h2>
@@ -47,7 +63,7 @@ export default async function AssignmentDetailPage({
       </div>
 
       {/* Prompt */}
-      <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-6 shadow-sm">
+      <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-6">
         <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-3">
           Assignment Prompt
         </p>
@@ -58,7 +74,7 @@ export default async function AssignmentDetailPage({
 
       {/* Config summary */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-5 shadow-sm">
+        <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-5">
           <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
             AI Message Limit
           </p>
@@ -70,7 +86,7 @@ export default async function AssignmentDetailPage({
             </span>
           </p>
         </div>
-        <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-5 shadow-sm">
+        <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-5">
           <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
             Scaffolding Prompts
           </p>
@@ -84,7 +100,7 @@ export default async function AssignmentDetailPage({
         </div>
       </div>
 
-      <div className="rounded-xl border border-[var(--color-surface-variant)] bg-[var(--color-surface-container-lowest)] p-5 shadow-sm">
+      <div className="rounded-xl border border-[var(--color-surface-variant)] bg-[var(--color-surface-container-lowest)] p-5">
         <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-1">
           AI Unlock Threshold
         </p>
@@ -93,7 +109,7 @@ export default async function AssignmentDetailPage({
 
       {/* Progressive stage instructions */}
       {assignment.gate_level === "progressive" && assignment.stage_instructions && (
-        <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-6 shadow-sm">
+        <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-6">
           <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-4">
             Progressive Stage Instructions
           </p>
@@ -118,7 +134,7 @@ export default async function AssignmentDetailPage({
 
       {/* Scaffolding list */}
       {assignment.scaffolding_prompts.length > 0 && (
-        <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-6 shadow-sm">
+        <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-6">
           <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-3">
             Scaffolding Prompts
           </p>
@@ -139,7 +155,7 @@ export default async function AssignmentDetailPage({
       )}
 
       {/* Access link */}
-      <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-6 shadow-sm">
+      <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-6">
         <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-3">
           Student Access Link
         </p>

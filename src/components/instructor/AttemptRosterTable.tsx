@@ -26,10 +26,10 @@ export default async function AttemptRosterTable({
   const attempts = await listAttemptsForAssignment(assignmentId);
 
   return (
-    <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-6 shadow-sm">
+    <div className="bg-[var(--color-surface-container-lowest)] rounded-xl border border-[var(--color-surface-variant)] p-6">
       <div className="flex items-center justify-between gap-4 mb-4">
         <p className="font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)]">
-          Class Roster
+          Submission History
         </p>
         <span className="text-sm text-[var(--color-on-surface-variant)]">
           {attempts.length} {attempts.length === 1 ? "attempt" : "attempts"}

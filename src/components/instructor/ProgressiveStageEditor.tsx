@@ -13,7 +13,7 @@ const DEFAULT_INSTRUCTIONS: StageInstructions = {
   reflect:
     "Complete all reflection prompts before AI unlocks. Aim for depth, not just length.",
   ai_assist:
-    "AI is now available to help you explore and strengthen your thinking. You have a limited number of messages.",
+    "AI is now available to help you explore and strengthen their thinking. You have a limited number of messages.",
   synthesize:
     "Use AI to help polish and organize your final draft. Focus on clarity and coherence.",
 };

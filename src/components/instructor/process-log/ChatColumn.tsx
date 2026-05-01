@@ -8,18 +8,18 @@ export default function ChatColumn({
 }) {
   return (
     <section className="flex min-h-0 min-w-0 flex-col gap-4 lg:border-l lg:border-[var(--color-outline-variant)] lg:pl-6">
-      <div className="flex items-center gap-2 pb-2 border-b border-[var(--color-outline-variant)] shrink-0">
+      <div className="flex items-center gap-2 pb-2 border-b border-[var(--color-outline-variant)] shrink-0 sticky top-0 z-10 bg-[var(--color-background)] pt-1">
         <span className="material-symbols-outlined text-[var(--color-tertiary-container)]">
           forum
         </span>
         <h3 className="font-[var(--font-heading)] text-[24px] leading-[1.4] font-medium text-[var(--color-on-background)]">
-          2. AI Assistance Session
+          AI Assistance Session
         </h3>
       </div>
 
       <div className="flex-1 overflow-y-auto space-y-4 pr-1">
         {chatMessages.length === 0 ? (
-          <div className="rounded-xl border border-[var(--color-outline-variant)] bg-[var(--color-surface-container-lowest)] p-5 shadow-sm">
+          <div className="rounded-xl border border-[var(--color-outline-variant)] bg-[var(--color-surface-container-lowest)] p-5">
             <p className="text-sm text-[var(--color-on-surface-variant)]">
               No AI conversation was recorded for this attempt.
             </p>
@@ -33,7 +33,7 @@ export default function ChatColumn({
               }`}
             >
               <div
-                className={`relative max-w-[95%] rounded-2xl p-4 shadow-sm ${
+                className={`relative max-w-[95%] rounded-2xl p-4 ${
                   message.role === "user"
                     ? "rounded-tr-sm border border-[var(--color-outline-variant)] bg-[var(--color-surface-container-lowest)]"
                     : "rounded-tl-sm border border-dashed border-[color-mix(in_srgb,var(--color-primary)_35%,white)] bg-[var(--color-surface-container)]"

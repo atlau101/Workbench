@@ -656,3 +656,19 @@ export async function listFlaggedAttemptsForInstructor(): Promise<FlaggedAttempt
     })
     .map(({ updatedAt, ...item }) => item);
 }
+
+export async function toggleInstructorFlag(
+  attemptId: string,
+  flagged: boolean
+): Promise<{ error?: string }> {
+  const { supabase, user } = await requireUser();
+  if (!user) return { error: "Not authenticated." };
+
+  const { error } = await supabase
+    .from("assignment_attempts")
+    .update({ instructor_flagged: flagged })
+    .eq("id", attemptId);
+
+  if (error) return { error: error.message };
+  return {};
+}

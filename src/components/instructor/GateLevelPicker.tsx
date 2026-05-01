@@ -27,14 +27,23 @@ export default function GateLevelPicker({
 }: GateLevelPickerProps) {
   const isProgressive = gateLevel === "progressive";
 
+  function confirmLeaveProgressive(): boolean {
+    if (!isProgressive) return true;
+    return window.confirm(
+      "Switching away from Progressive stages will clear your custom stage instructions. Continue?"
+    );
+  }
+
   function applyPreset(preset: "high" | "low" | "progressive") {
     if (preset === "high") {
+      if (!confirmLeaveProgressive()) return;
       onGateLevelChange("standard");
       onMinWordCountChange(300);
       return;
     }
 
     if (preset === "low") {
+      if (!confirmLeaveProgressive()) return;
       onGateLevelChange("standard");
       onMinWordCountChange(100);
       return;
@@ -137,9 +146,10 @@ export default function GateLevelPicker({
           <input
             type="checkbox"
             checked={isProgressive}
-            onChange={(e) =>
-              onGateLevelChange(e.target.checked ? "progressive" : "standard")
-            }
+            onChange={(e) => {
+              if (!e.target.checked && !confirmLeaveProgressive()) return;
+              onGateLevelChange(e.target.checked ? "progressive" : "standard");
+            }}
             className="peer sr-only"
           />
           <div className="h-7 w-12 rounded-full bg-[var(--color-surface-container-highest)] transition-colors peer-checked:bg-[var(--color-primary)]" />

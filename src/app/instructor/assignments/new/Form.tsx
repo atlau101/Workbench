@@ -21,8 +21,6 @@ const DEFAULT_STAGE_INSTRUCTIONS: StageInstructions = {
     "Use AI to help polish and organize your final draft. Focus on clarity and coherence.",
 };
 
-const STEPS = ["Basic Info", "Gate Config", "Scaffolding", "Integration"];
-
 interface Props {
   templates: AssignmentTemplate[];
   courses: Course[];
@@ -83,42 +81,6 @@ export default function NewAssignmentForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* Visual stepper */}
-      <div className="mb-10 max-w-3xl mx-auto">
-        <div className="flex items-center justify-between relative">
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-[var(--color-surface-container-highest)] -z-10 rounded-full" />
-          {STEPS.map((step, i) => {
-            const done = i < 2; // visual only
-            const current = i === 1;
-            return (
-              <div
-                key={step}
-                className="flex flex-col items-center gap-2 bg-[var(--color-background)] px-2"
-              >
-                <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ring-4 ring-[var(--color-background)] ${
-                    done || current
-                      ? "bg-[var(--color-primary)] text-white"
-                      : "bg-[var(--color-surface-container-highest)] text-[var(--color-outline)]"
-                  }`}
-                >
-                  {i + 1}
-                </div>
-                <span
-                  className={`font-[var(--font-heading)] text-[12px] font-semibold tracking-[0.05em] uppercase ${
-                    done || current
-                      ? "text-[var(--color-primary)]"
-                      : "text-[var(--color-outline)]"
-                  }`}
-                >
-                  {step}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Main column */}
         <div className="lg:col-span-8 flex flex-col gap-8">
