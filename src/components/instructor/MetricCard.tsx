@@ -17,19 +17,27 @@ export default function MetricCard({
   return (
     <div
       className={[
-        "rounded-xl p-5 border-t-2",
+        "rounded-xl p-5 border",
         isAlert
-          ? "bg-[var(--color-error-container)]/10 border-t-[var(--color-error)]"
-          : "bg-[var(--color-surface-container-low)] border-t-[var(--color-primary)]",
+          ? "bg-[var(--color-error-container)]/25 border-[var(--color-error)]/20"
+          : "bg-[var(--color-surface-container-low)] border-[var(--color-outline-variant)]",
       ].join(" ")}
     >
-      <p className="font-heading text-[11px] font-semibold tracking-[0.06em] uppercase text-[var(--color-on-surface-variant)] mb-3">
-        {label}
-      </p>
+      <div className="flex items-center gap-2 mb-3">
+        <div
+          className={[
+            "h-2 w-2 rounded-full shrink-0",
+            isAlert ? "bg-[var(--color-error)]" : "bg-[var(--color-primary)]",
+          ].join(" ")}
+        />
+        <p className="font-heading text-[11px] font-semibold tracking-[0.06em] uppercase text-[var(--color-on-surface-variant)]">
+          {label}
+        </p>
+      </div>
       <div className="flex items-baseline justify-between gap-2">
         <span
           className={[
-            "tabular font-heading text-3xl font-semibold leading-none",
+            "tabular font-heading text-4xl font-semibold leading-none tracking-tight",
             isAlert
               ? "text-[var(--color-error)]"
               : "text-[var(--color-on-surface)]",

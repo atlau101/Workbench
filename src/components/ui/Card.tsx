@@ -9,8 +9,8 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
     <div
       ref={ref}
       className={[
-        "rounded-[var(--radius-lg)] bg-[var(--color-surface-container-lowest)] border border-[var(--color-outline-variant)]",
-        elevated ? "shadow-[0_4px_20px_0_color-mix(in_srgb,var(--color-primary)_12%,transparent)]" : "",
+        "rounded-[var(--radius-lg)] bg-[var(--color-surface-container-lowest)] border border-[var(--color-outline-variant)] transition-shadow duration-200",
+        elevated ? "shadow-[0_4px_24px_0_color-mix(in_srgb,var(--color-primary)_14%,transparent)]" : "",
         className,
       ].join(" ")}
       {...props}

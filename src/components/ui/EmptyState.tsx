@@ -22,9 +22,11 @@ export default function EmptyState({
         className,
       ].join(" ")}
     >
-      <span className="material-symbols-outlined text-4xl text-[var(--color-outline)]">
-        {icon}
-      </span>
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[color-mix(in_srgb,var(--color-primary)_10%,white)] border border-[color-mix(in_srgb,var(--color-primary)_18%,white)]">
+        <span className="material-symbols-outlined text-[28px] text-[var(--color-primary)]">
+          {icon}
+        </span>
+      </div>
       <div className="space-y-2">
         <h3 className="font-heading text-[20px] font-semibold text-[var(--color-on-surface)]">
           {title}

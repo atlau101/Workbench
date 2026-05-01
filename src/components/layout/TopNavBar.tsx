@@ -46,7 +46,7 @@ export default function TopNavBar({ userEmail }: TopNavBarProps) {
         <button
           type="button"
           aria-label="Open account menu"
-          className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-surface-container)] font-heading text-sm font-semibold text-[var(--color-on-surface)] transition-colors hover:bg-[var(--color-surface-container-high)] hover:text-[var(--color-primary)]"
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--color-primary)_15%,white)] font-heading text-sm font-semibold text-[var(--color-primary)] transition-colors hover:bg-[color-mix(in_srgb,var(--color-primary)_25%,white)]"
         >
           {initial}
         </button>

@@ -82,3 +82,7 @@ next-env.d.ts
 
 .agents
 skills-lock.json
+.playwright
+.playwright-cli
+
+claude.md

@@ -21,22 +21,34 @@ export default function Stepper({ steps, currentStep }: StepperProps) {
             <div className="flex flex-col items-center gap-1">
               <div
                 className={[
-                  "w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors",
+                  "w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-all duration-300",
                   done
-                    ? "bg-[var(--color-primary)] text-[var(--color-on-primary)]"
+                    ? "bg-[var(--color-primary)] text-[var(--color-on-primary)] shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_20%,transparent)]"
                     : active
-                    ? "bg-white border-2 border-[var(--color-amber)] text-[var(--color-primary)]"
+                    ? "bg-white border-2 border-[var(--color-amber)] text-[var(--color-primary)] shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-amber)_20%,transparent)]"
                     : "bg-[var(--color-surface-container)] text-[var(--color-on-surface-variant)]",
                 ].join(" ")}
               >
                 {done ? "✓" : i + 1}
               </div>
-              <span className={`text-xs font-heading tracking-wide ${active ? "text-[var(--color-on-surface)]" : "text-[var(--color-on-surface-variant)]"}`}>
+              <span
+                className={[
+                  "text-xs font-heading tracking-wide transition-colors duration-200",
+                  active
+                    ? "text-[var(--color-on-surface)] font-medium"
+                    : "text-[var(--color-on-surface-variant)]",
+                ].join(" ")}
+              >
                 {label}
               </span>
             </div>
             {i < steps.length - 1 && (
-              <div className={`flex-1 h-0.5 mx-2 mb-5 ${done ? "bg-[var(--color-primary)]" : "bg-[var(--color-outline-variant)]"}`} />
+              <div
+                className={[
+                  "flex-1 h-0.5 mx-2 mb-5 transition-colors duration-500",
+                  done ? "bg-[var(--color-primary)]" : "bg-[var(--color-outline-variant)]",
+                ].join(" ")}
+              />
             )}
           </li>
         );

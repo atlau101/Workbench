@@ -100,7 +100,7 @@ export default function Sidebar({ role }: SidebarProps) {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-primary)] text-[var(--color-on-primary)] shrink-0">
               <span className="material-symbols-outlined text-[18px] fill">menu_book</span>
             </div>
-            <span className="font-heading text-base font-semibold text-[var(--color-on-surface)] group-hover:text-[var(--color-primary)] transition-colors">
+            <span className="font-heading text-base font-bold tracking-tight text-[var(--color-on-surface)] group-hover:text-[var(--color-primary)] transition-colors">
               Workbench
             </span>
           </Link>
@@ -130,9 +130,9 @@ export default function Sidebar({ role }: SidebarProps) {
                 onClick={closeSidebar}
                 aria-current={active ? "page" : undefined}
                 className={[
-                  "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all font-heading font-medium",
+                  "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all duration-150 font-heading font-medium",
                   active
-                    ? "bg-[var(--color-primary)]/10 text-[var(--color-primary)]"
+                    ? "bg-[color-mix(in_srgb,var(--color-primary)_14%,white)] text-[var(--color-primary)] font-semibold"
                     : "text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-container)] hover:text-[var(--color-on-surface)]",
                 ].join(" ")}
               >

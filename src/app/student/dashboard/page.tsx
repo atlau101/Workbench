@@ -42,9 +42,15 @@ function attemptStatusBadge(status: string | undefined) {
           "bg-[color-mix(in_srgb,var(--color-primary-container)_30%,white)] text-[var(--color-primary)]",
       };
     case "submitted":
-      return { text: "Submitted", className: "bg-green-50 text-green-700" };
+      return {
+        text: "Submitted",
+        className: "bg-[color-mix(in_srgb,var(--color-amber)_15%,white)] text-[color-mix(in_srgb,var(--color-amber)_80%,black)]",
+      };
     case "complete":
-      return { text: "Complete", className: "bg-green-50 text-green-700" };
+      return {
+        text: "Complete",
+        className: "bg-[color-mix(in_srgb,var(--color-primary)_12%,white)] text-[var(--color-primary)]",
+      };
     default:
       return {
         text: "Not started",
