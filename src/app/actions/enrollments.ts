@@ -4,16 +4,20 @@ import { revalidatePath } from "next/cache";
 import { createServerSupabaseClient } from "@/lib/supabase";
 import type { Enrollment, PendingInvite, EnrolledCourse } from "@/lib/courses";
 
-// PostgREST returns many→one FK joins as objects, not arrays
+type SupabaseRelation<T> = T | T[] | null;
+
 type PendingInviteRow = {
   id: string;
   course_id: string;
-  courses: {
+  courses: SupabaseRelation<{
     name: string | null;
-    profiles: { email: string | null } | null;
-  } | null;
+    profiles: SupabaseRelation<{ email: string | null }>;
+  }>;
 };
 
+function firstRelation<T>(value: SupabaseRelation<T>): T | null {
+  return Array.isArray(value) ? value[0] ?? null : value;
+}
 
 export async function inviteStudent(
   courseId: string,
@@ -93,12 +97,17 @@ export async function listPendingInvitesForMe(): Promise<PendingInvite[]> {
 
   if (error || !data) return [];
 
-  return (data as PendingInviteRow[]).map((row) => ({
-    enrollment_id: row.id,
-    course_id: row.course_id,
-    course_name: row.courses?.name ?? "",
-    instructor_email: row.courses?.profiles?.email ?? "",
-  }));
+  return (data as PendingInviteRow[]).map((row) => {
+    const course = firstRelation(row.courses);
+    const profile = firstRelation(course?.profiles ?? null);
+
+    return {
+      enrollment_id: row.id,
+      course_id: row.course_id,
+      course_name: course?.name ?? "",
+      instructor_email: profile?.email ?? "",
+    };
+  });
 }
 
 export async function listEnrolledCoursesForMe(): Promise<EnrolledCourse[]> {

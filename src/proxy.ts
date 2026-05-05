@@ -15,7 +15,7 @@ function redirectWithCookies(path: string, request: NextRequest, source: NextRes
   return redirectResponse;
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const response = NextResponse.next({
     request,
   });

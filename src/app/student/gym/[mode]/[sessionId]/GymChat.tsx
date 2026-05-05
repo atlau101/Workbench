@@ -36,10 +36,11 @@ export default function GymChat({
 }: GymChatProps) {
   const config = GYM_MODES[mode];
   const [messages, setMessages] = useState<LocalMessage[]>(initialMessages);
-  const [chatUnlocked, setChatUnlocked] = useState(unlocked);
+  const [unlockOverride, setUnlockOverride] = useState<boolean | null>(null);
   const [draft, setDraft] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isSending, setIsSending] = useState(false);
+  const chatUnlocked = unlockOverride ?? unlocked;
 
   const userCount = useMemo(
     () => messages.filter((message) => message.role === "user").length,
@@ -51,16 +52,12 @@ export default function GymChat({
   const composerDisabled = !chatUnlocked || limitReached || completed;
 
   useEffect(() => {
-    setChatUnlocked(unlocked);
-  }, [unlocked]);
-
-  useEffect(() => {
     function handleUnlockChange(event: Event) {
       const detail = (
         event as CustomEvent<{ sessionId?: string; unlocked?: boolean }>
       ).detail;
       if (detail?.sessionId === sessionId) {
-        setChatUnlocked(Boolean(detail.unlocked));
+        setUnlockOverride(Boolean(detail.unlocked));
       }
     }
     window.addEventListener("gym-session-unlock", handleUnlockChange as EventListener);

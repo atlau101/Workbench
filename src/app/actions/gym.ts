@@ -28,6 +28,8 @@ export async function startSession(
   _previousState: StartSessionState = INITIAL_START_SESSION_STATE,
   formData: FormData
 ): Promise<StartSessionState | never> {
+  void _previousState;
+
   const modeValue = String(formData.get("mode") ?? "");
   const scenarioIdValue = String(formData.get("scenarioId") ?? "").trim();
   const customTopicValue = String(formData.get("customTopic") ?? "").trim();

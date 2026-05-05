@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useTransition } from "react";
 import { createAssignment } from "@/app/actions/assignments";
 import GateLevelPicker from "@/components/instructor/GateLevelPicker";
@@ -270,12 +271,12 @@ export default function NewAssignmentForm({
 
       {/* Sticky footer */}
       <div className="sticky bottom-0 -mx-6 bg-white border-t border-slate-200 p-4 px-6 flex justify-between items-center mt-8 z-10 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
-        <a
+        <Link
           href="/instructor/assignments"
           className="px-6 py-2.5 rounded-lg border border-[var(--color-outline-variant)] text-[var(--color-on-surface-variant)] font-medium hover:bg-[var(--color-surface-container-low)] transition-colors bg-white"
         >
           Cancel
-        </a>
+        </Link>
         <button
           type="submit"
           disabled={isPending}

@@ -654,7 +654,12 @@ export async function listFlaggedAttemptsForInstructor(): Promise<FlaggedAttempt
     .sort((left, right) => {
       return new Date(right.updatedAt).getTime() - new Date(left.updatedAt).getTime();
     })
-    .map(({ updatedAt, ...item }) => item);
+    .map((item) => ({
+      attemptId: item.attemptId,
+      studentLabel: item.studentLabel,
+      assignmentTitle: item.assignmentTitle,
+      reason: item.reason,
+    }));
 }
 
 export async function toggleInstructorFlag(

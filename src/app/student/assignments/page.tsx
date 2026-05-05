@@ -61,7 +61,7 @@ export default async function StudentAssignmentsPage() {
     }))
   );
 
-  let attempts: Record<string, { id: string; status: AttemptStatus }> = {};
+  const attempts: Record<string, { id: string; status: AttemptStatus }> = {};
   if (allAssignments.length > 0) {
     const { data } = await supabase
       .from("assignment_attempts")

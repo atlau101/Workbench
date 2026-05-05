@@ -108,7 +108,7 @@ export default async function StudentDashboardPage() {
       }))
   );
 
-  let attempts: Record<string, { id: string; status: string }> = {};
+  const attempts: Record<string, { id: string; status: string }> = {};
   if (allAssignments.length > 0) {
     const { data } = await supabase
       .from("assignment_attempts")
