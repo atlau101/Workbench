@@ -20,7 +20,7 @@ type SidebarProps = {
 
 const navItemsByRole: Record<Role, NavItem[]> = {
   instructor: [
-    { href: "/instructor/dashboard", label: "Dashboard", icon: "dashboard" },
+    { href: "/instructor/dashboard", label: "Overview", icon: "dashboard" },
     {
       href: "/instructor/assignments",
       label: "Assignments",
@@ -33,26 +33,24 @@ const navItemsByRole: Record<Role, NavItem[]> = {
       icon: "group",
       matchPrefix: "/instructor/courses",
     },
-    { href: "/instructor/gym", label: "Thinking Gym", icon: "psychology" },
     { href: "/instructor/profile", label: "Profile", icon: "person" },
   ],
   student: [
     { href: "/student/dashboard", label: "Dashboard", icon: "dashboard" },
     {
-      href: "/student/courses",
-      label: "Courses",
-      icon: "school",
-      matchPrefix: "/student/courses",
-    },
-    {
       href: "/student/assignments",
-      label: "Workspace",
+      label: "Assignments",
       icon: "edit_note",
       matchPrefix: "/student/assignments",
     },
     { href: "/student/gym", label: "Thinking Gym", icon: "psychology" },
     { href: "/student/profile", label: "Profile", icon: "person" },
   ],
+};
+
+const secondaryItemsByRole: Partial<Record<Role, NavItem[]>> = {
+  instructor: [{ href: "/instructor/gym", label: "Thinking Gym Review", icon: "psychology" }],
+  student: [{ href: "/student/courses", label: "Courses", icon: "school", matchPrefix: "/student/courses" }],
 };
 
 function isActive(pathname: string, item: NavItem) {
@@ -72,6 +70,7 @@ function isActive(pathname: string, item: NavItem) {
 export default function Sidebar({ role }: SidebarProps) {
   const pathname = usePathname();
   const navItems = navItemsByRole[role];
+  const secondaryItems = secondaryItemsByRole[role] ?? [];
   const { open, closeSidebar } = useSidebar();
 
   return (
@@ -145,24 +144,57 @@ export default function Sidebar({ role }: SidebarProps) {
           })}
         </nav>
 
-        <div className="mt-auto space-y-0.5 border-t border-[var(--color-outline-variant)] px-3 py-3">
-          <button
-            type="button"
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-heading font-medium text-[var(--color-on-surface-variant)] transition-all hover:bg-[var(--color-surface-container)] hover:text-[var(--color-on-surface)]"
-          >
-            <span className="material-symbols-outlined text-[20px]">settings</span>
-            Settings
-          </button>
-          <form action={signOut}>
+        <div className="mt-auto border-t border-[var(--color-outline-variant)] px-3 py-3">
+          {secondaryItems.length > 0 ? (
+            <div className="mb-3 space-y-1.5">
+              <p className="px-3 text-[10px] font-semibold uppercase tracking-[0.08em] text-[var(--color-on-surface-variant)]">
+                Secondary
+              </p>
+              {secondaryItems.map((item) => {
+                const active = isActive(pathname, item);
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={closeSidebar}
+                    aria-current={active ? "page" : undefined}
+                    className={[
+                      "flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-heading font-medium transition-all",
+                      active
+                        ? "bg-[color-mix(in_srgb,var(--color-primary)_10%,white)] text-[var(--color-primary)]"
+                        : "text-[var(--color-on-surface-variant)] hover:bg-[var(--color-surface-container)] hover:text-[var(--color-on-surface)]",
+                    ].join(" ")}
+                  >
+                    <span className={active ? "material-symbols-outlined fill text-[20px]" : "material-symbols-outlined text-[20px]"}>
+                      {item.icon}
+                    </span>
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </div>
+          ) : null}
+
+          <div className="space-y-0.5">
             <button
-              type="submit"
-              aria-label="Sign out"
+              type="button"
               className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-heading font-medium text-[var(--color-on-surface-variant)] transition-all hover:bg-[var(--color-surface-container)] hover:text-[var(--color-on-surface)]"
             >
-              <span className="material-symbols-outlined text-[20px]">logout</span>
-              Sign out
+              <span className="material-symbols-outlined text-[20px]">settings</span>
+              Settings
             </button>
-          </form>
+            <form action={signOut}>
+              <button
+                type="submit"
+                aria-label="Sign out"
+                className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-heading font-medium text-[var(--color-on-surface-variant)] transition-all hover:bg-[var(--color-surface-container)] hover:text-[var(--color-on-surface)]"
+              >
+                <span className="material-symbols-outlined text-[20px]">logout</span>
+                Sign out
+              </button>
+            </form>
+          </div>
         </div>
       </aside>
     </>

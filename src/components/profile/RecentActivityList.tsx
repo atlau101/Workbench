@@ -14,18 +14,24 @@ function formatDateTime(value: string): string {
 
 interface RecentActivityListProps {
   items: StudentRecentActivityItem[];
+  title?: string;
+  description?: string;
 }
 
-export default function RecentActivityList({ items }: RecentActivityListProps) {
+export default function RecentActivityList({
+  items,
+  title = "Recent activity",
+  description = "Your latest submitted assignments and completed gym sessions.",
+}: RecentActivityListProps) {
   return (
     <Card className="p-6">
       <div className="flex items-center justify-between gap-4">
         <div>
           <h2 className="font-heading text-[22px] font-semibold text-[var(--color-on-surface)]">
-            Recent activity
+            {title}
           </h2>
           <p className="mt-2 text-sm text-[var(--color-on-surface-variant)]">
-            Your latest submitted assignments and completed gym sessions.
+            {description}
           </p>
         </div>
       </div>
