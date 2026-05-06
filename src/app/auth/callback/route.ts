@@ -51,5 +51,7 @@ export async function GET(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  return redirectWithCookies(getRoleDashboard(user?.user_metadata.role), request, response);
+  const role = user?.user_metadata?.role;
+  if (!role) return redirectWithCookies("/onboarding/role", request, response);
+  return redirectWithCookies(getRoleDashboard(role), request, response);
 }

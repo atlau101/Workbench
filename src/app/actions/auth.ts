@@ -84,6 +84,32 @@ export async function signUp(formData: FormData) {
   redirect(getRoleDashboard(role));
 }
 
+export async function signInWithGoogle() {
+  const supabase = await createServerSupabaseClient();
+  const callbackUrl = await getAuthCallbackUrl();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: { redirectTo: callbackUrl },
+  });
+  if (error || !data.url) {
+    redirect(getErrorRedirect("/login", error?.message ?? "OAuth failed"));
+  }
+  redirect(data.url);
+}
+
+export async function setUserRole(formData: FormData) {
+  const role = String(formData.get("role") ?? "") as Role;
+  if (role !== "instructor" && role !== "student") {
+    redirect("/onboarding/role?error=" + encodeURIComponent("Invalid role."));
+  }
+  const supabase = await createServerSupabaseClient();
+  const { error } = await supabase.auth.updateUser({ data: { role } });
+  if (error) {
+    redirect("/onboarding/role?error=" + encodeURIComponent(error.message));
+  }
+  redirect(getRoleDashboard(role));
+}
+
 export async function signOut() {
   const supabase = await createServerSupabaseClient();
   await supabase.auth.signOut();

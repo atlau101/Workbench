@@ -1,9 +1,11 @@
 import { createServerSupabaseClient } from "@/lib/supabase";
 import { anthropic, anthropicConfigured, CHAT_MODEL } from "@/lib/anthropic";
 import { toAssignment, toAttempt, toReflectionResponse } from "@/lib/assignments";
+import { BUDDY_PERSONA } from "@/lib/gym";
 
 function buildSystemPrompt(prompt: string, reflections: string[]): string {
   return [
+    ...BUDDY_PERSONA,
     "You are a Socratic tutor.",
     `The student is working on: ${prompt}`,
     `Their reflection: ${reflections.join("\n\n")}`,
@@ -99,33 +101,29 @@ export async function POST(request: Request) {
     content: row.content,
   }));
 
-  const stream = anthropic.messages.stream({
+  const stream = await anthropic.chat.completions.create({
     model: CHAT_MODEL,
     max_tokens: 1024,
-    system: buildSystemPrompt(assignment.prompt, reflections),
     messages: [
+      { role: "system", content: buildSystemPrompt(assignment.prompt, reflections) },
       ...history,
-      {
-        role: "user",
-        content: body.message.trim(),
-      },
+      { role: "user", content: body.message.trim() },
     ],
+    stream: true,
   });
 
   let assistantText = "";
-  stream.on("text", (delta) => {
-    assistantText += delta;
-  });
-
   const encoder = new TextEncoder();
   const responseStream = new ReadableStream({
     async start(controller) {
       try {
-        stream.on("text", (delta) => {
-          controller.enqueue(encoder.encode(delta));
-        });
-
-        await stream.done();
+        for await (const chunk of stream) {
+          const delta = chunk.choices[0]?.delta?.content ?? "";
+          if (delta) {
+            assistantText += delta;
+            controller.enqueue(encoder.encode(delta));
+          }
+        }
 
         if (assistantText.trim()) {
           await supabase.from("chat_messages").insert({

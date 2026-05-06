@@ -61,6 +61,11 @@ export interface GymSessionBundle {
 
 export const GYM_MESSAGE_LIMIT = 30;
 
+export const BUDDY_PERSONA = [
+  "You are a friendly AI learning buddy — warm, encouraging, and genuinely invested in the student's growth.",
+  "Your goal is to help the student think better, not to think for them.",
+];
+
 export const GYM_MODES: Record<GymMode, GymModeConfig> = {
   brainstorming: {
     id: "brainstorming",
@@ -81,10 +86,11 @@ export const GYM_MODES: Record<GymMode, GymModeConfig> = {
       { id: "novelty", text: "What would make an idea feel genuinely fresh instead of obvious?" },
     ],
     system: [
-      "You are an expansive brainstorming coach.",
-      "Generate multiple paths before narrowing.",
-      "Push for novelty, combinations, and reframes.",
-      "Do not prematurely judge or collapse to a single answer.",
+      "You are a creative brainstorming buddy — curious, energetic, and genuinely excited to explore ideas together.",
+      "Your job is to help the student generate a wide range of possibilities before narrowing down.",
+      "Offer unexpected angles, wild combinations, and 'what if' reframes freely — quantity before quality.",
+      "Be encouraging and build on what the student says rather than redirecting.",
+      "Never collapse to a single best answer; always leave more threads to pull.",
     ],
   },
   critical_analysis: {
@@ -266,6 +272,7 @@ export function buildGymSystemPrompt(input: {
     .join("\n\n");
 
   return [
+    ...BUDDY_PERSONA,
     ...config.system,
     `Tone profile: ${config.tone}.`,
     input.scenarioPrompt ? `Scenario:\n${input.scenarioPrompt}` : null,

@@ -86,41 +86,39 @@ export async function POST(request: Request) {
   const history = (messageRows ?? []).map((row) => toGymMessage(row));
   const scenario = scenarioRow ? toScenario(scenarioRow) : null;
 
-  const stream = anthropic.messages.stream({
+  const systemPrompt = buildGymSystemPrompt({
+    mode: session.mode,
+    scenarioPrompt: scenario?.prompt ?? null,
+    customTopic: session.custom_topic,
+    scaffolding: session.scaffolding,
+  });
+
+  const stream = await anthropic.chat.completions.create({
     model: CHAT_MODEL,
     max_tokens: 1024,
-    system: buildGymSystemPrompt({
-      mode: session.mode,
-      scenarioPrompt: scenario?.prompt ?? null,
-      customTopic: session.custom_topic,
-      scaffolding: session.scaffolding,
-    }),
     messages: [
+      { role: "system", content: systemPrompt },
       ...history.map((message) => ({
         role: message.role,
         content: message.content,
       })),
-      {
-        role: "user" as const,
-        content: body.message.trim(),
-      },
+      { role: "user", content: body.message.trim() },
     ],
+    stream: true,
   });
 
   let assistantText = "";
-  stream.on("text", (delta) => {
-    assistantText += delta;
-  });
-
   const encoder = new TextEncoder();
   const responseStream = new ReadableStream({
     async start(controller) {
       try {
-        stream.on("text", (delta) => {
-          controller.enqueue(encoder.encode(delta));
-        });
-
-        await stream.done();
+        for await (const chunk of stream) {
+          const delta = chunk.choices[0]?.delta?.content ?? "";
+          if (delta) {
+            assistantText += delta;
+            controller.enqueue(encoder.encode(delta));
+          }
+        }
 
         if (assistantText.trim()) {
           await supabase.from("gym_messages").insert({

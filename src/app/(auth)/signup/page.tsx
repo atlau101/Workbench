@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { signUp } from "@/app/actions/auth";
+import { signUp, signInWithGoogle } from "@/app/actions/auth";
 import { Button, Card } from "@/components/ui";
 
 type SignupPageProps = {
@@ -68,6 +68,20 @@ export default async function SignupPage({ searchParams }: SignupPageProps) {
 
         <Button type="submit" className="w-full">
           Create account
+        </Button>
+      </form>
+
+      <div className="relative my-6">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-[var(--color-outline-variant)]" />
+        </div>
+        <div className="relative flex justify-center text-sm">
+          <span className="bg-white px-2 text-[var(--color-on-surface-variant)]">or</span>
+        </div>
+      </div>
+      <form action={signInWithGoogle}>
+        <Button type="submit" variant="secondary" className="w-full">
+          Continue with Google
         </Button>
       </form>
 

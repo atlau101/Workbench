@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { signIn, signInWithMagicLink } from "@/app/actions/auth";
+import { signIn, signInWithMagicLink, signInWithGoogle } from "@/app/actions/auth";
 import { Button, Card } from "@/components/ui";
 
 function LoginForm() {
@@ -96,6 +96,20 @@ function LoginForm() {
           </Button>
         </form>
       )}
+
+      <div className="relative my-6">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-[var(--color-outline-variant)]" />
+        </div>
+        <div className="relative flex justify-center text-sm">
+          <span className="bg-white px-2 text-[var(--color-on-surface-variant)]">or</span>
+        </div>
+      </div>
+      <form action={signInWithGoogle}>
+        <Button type="submit" variant="secondary" className="w-full">
+          Continue with Google
+        </Button>
+      </form>
 
       <p className="mt-6 text-sm text-[var(--color-on-surface-variant)]">
         Need an account?{" "}
