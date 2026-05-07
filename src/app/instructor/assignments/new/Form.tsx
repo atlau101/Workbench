@@ -40,6 +40,7 @@ export default function NewAssignmentForm({
   );
   const [gateLevel, setGateLevel] = useState<GateLevel>("standard");
   const [minWordCount, setMinWordCount] = useState(150);
+  const [minSynthesisWords, setMinSynthesisWords] = useState(100);
   const [aiMsgLimit, setAiMsgLimit] = useState(20);
   const [scaffolding, setScaffolding] = useState<ScaffoldingPrompt[]>([]);
   const [stageInstructions, setStageInstructions] = useState<StageInstructions>(
@@ -67,6 +68,7 @@ export default function NewAssignmentForm({
         prompt,
         gate_level: gateLevel,
         minWordCount,
+        minSynthesisWords,
         ai_msg_limit: aiMsgLimit,
         scaffolding_prompts: scaffolding,
         stage_instructions:
@@ -176,6 +178,25 @@ export default function NewAssignmentForm({
               <div className="flex justify-between text-xs text-[var(--color-on-surface-variant)] mt-1">
                 <span>5 (focused)</span>
                 <span>50 (open-ended)</span>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <label className="block font-heading text-[12px] font-semibold tracking-[0.05em] uppercase text-[var(--color-on-surface-variant)] mb-2">
+                Minimum Synthesis Words — {minSynthesisWords} words
+              </label>
+              <input
+                type="range"
+                min={50}
+                max={500}
+                step={25}
+                value={minSynthesisWords}
+                onChange={(e) => setMinSynthesisWords(Number(e.target.value))}
+                className="w-full accent-[var(--color-primary)]"
+              />
+              <div className="flex justify-between text-xs text-[var(--color-on-surface-variant)] mt-1">
+                <span>50 (brief)</span>
+                <span>500 (essay)</span>
               </div>
             </div>
           </section>

@@ -1,5 +1,5 @@
 import { createServerSupabaseClient } from "@/lib/supabase";
-import { anthropic, anthropicConfigured, CHAT_MODEL } from "@/lib/anthropic";
+import { anthropic, anthropicConfigured, CHAT_MODEL } from "@/lib/llm";
 import {
   buildGymSystemPrompt,
   GYM_MESSAGE_LIMIT,

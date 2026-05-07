@@ -3,7 +3,6 @@
 import { redirect } from "next/navigation";
 import { requireUser } from "@/lib/auth";
 import {
-  gateUnlocked,
   isLowEffortAttempt,
   toAssignment,
   toAttempt,
@@ -15,6 +14,7 @@ import {
   type FinalOutput,
   type ReflectionResponse,
 } from "@/lib/assignments";
+import { anthropicConfigured, evaluateReflectionQuality } from "@/lib/llm";
 
 export interface AttemptBundle {
   attempt: Attempt;
@@ -184,7 +184,7 @@ export async function saveReflectionDraft(
 
 export async function passReflectionGate(
   attemptId: string
-): Promise<{ error: string | null }> {
+): Promise<{ error: string | null; qualityFeedback?: string }> {
   const bundle = await getAttemptForStudent(attemptId);
   if ("error" in bundle) return bundle;
 
@@ -193,8 +193,54 @@ export async function passReflectionGate(
   }
 
   const totalWords = totalWordCount(bundle.responses);
-  if (!gateUnlocked(bundle.assignment, totalWords, "ai_assist")) {
+  const wordCountMet =
+    bundle.assignment.gate_level === "progressive"
+      ? true
+      : totalWords >= bundle.assignment.minWordCount;
+
+  if (!wordCountMet) {
     return { error: "Minimum word count not met yet." };
+  }
+
+  // LLM quality check (skip if Gemini not configured — fail open)
+  if (anthropicConfigured()) {
+    const enabledPrompts = bundle.assignment.scaffolding_prompts.filter((p) => p.enabled);
+    const responseTexts = enabledPrompts.map(
+      (p) => bundle.responses.find((r) => r.prompt_id === p.id)?.response ?? ""
+    );
+
+    // Compute a simple hash of combined responses to cache results
+    const combinedText = responseTexts.join("|||");
+    const contentHash = Buffer.from(combinedText).toString("base64").slice(0, 64);
+
+    // Check if all responses already passed with the same hash
+    const allCached = enabledPrompts.length > 0 && enabledPrompts.every((p) => {
+      const response = bundle.responses.find((r) => r.prompt_id === p.id);
+      return response?.qualityPass === true && response.qualityHash === contentHash;
+    });
+
+    if (!allCached) {
+      const qualityResult = await evaluateReflectionQuality({
+        assignmentPrompt: bundle.assignment.prompt,
+        scaffoldingPrompts: enabledPrompts.map((p) => p.text),
+        responses: responseTexts,
+      });
+
+      const { supabase: supabaseForCache } = await requireUser();
+      // Persist quality result to all responses (shared result for the attempt)
+      await supabaseForCache
+        .from("reflection_responses")
+        .update({
+          quality_pass: qualityResult.pass,
+          quality_feedback: qualityResult.feedback,
+          quality_hash: contentHash,
+        })
+        .eq("attempt_id", attemptId);
+
+      if (!qualityResult.pass) {
+        return { error: null, qualityFeedback: qualityResult.feedback };
+      }
+    }
   }
 
   const { supabase } = await requireUser();
@@ -231,11 +277,16 @@ export async function goToSynthesize(
     return { error: "Attempt is not in AI Assist." };
   }
 
+  const userMsgCount = bundle.chatMessages.filter((m) => m.role === "user").length;
+  const aiSkipped = userMsgCount === 0;
+
   const { supabase } = await requireUser();
   const { error } = await supabase
     .from("assignment_attempts")
     .update({
       status: "synthesize",
+      ai_skipped: aiSkipped,
+      ai_user_msg_count: userMsgCount,
     })
     .eq("id", attemptId);
 
@@ -298,6 +349,13 @@ export async function submitAttempt(
 
   if (bundle.attempt.status !== "synthesize") {
     return { error: "Attempt is not ready to submit." };
+  }
+
+  const finalWords = countWords(bundle.finalOutput?.content ?? "");
+  if (finalWords < bundle.assignment.minSynthesisWords) {
+    return {
+      error: `Your draft needs at least ${bundle.assignment.minSynthesisWords} words before you can submit. You have ${finalWords}.`,
+    };
   }
 
   const now = new Date().toISOString();

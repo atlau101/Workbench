@@ -21,6 +21,7 @@ export interface Assignment {
   prompt: string;
   gate_level: GateLevel;
   minWordCount: number;
+  minSynthesisWords: number;
   ai_msg_limit: number;
   scaffolding_prompts: ScaffoldingPrompt[];
   stage_instructions: StageInstructions | null;
@@ -44,6 +45,7 @@ export interface CreateAssignmentInput {
   prompt: string;
   gate_level: GateLevel;
   minWordCount: number;
+  minSynthesisWords: number;
   ai_msg_limit: number;
   scaffolding_prompts: ScaffoldingPrompt[];
   stage_instructions: StageInstructions | null;
@@ -66,6 +68,8 @@ export interface Attempt {
   final_draft_saved_at: string | null;
   submittedAt: string | null;
   instructorFlagged: boolean;
+  aiSkipped: boolean;
+  aiUserMsgCount: number;
 }
 
 export interface ReflectionResponse {
@@ -76,6 +80,9 @@ export interface ReflectionResponse {
   wordCount: number;
   frozen: boolean;
   updated_at: string;
+  qualityPass: boolean | null;
+  qualityFeedback: string | null;
+  qualityHash: string | null;
 }
 
 export interface ChatMessage {
@@ -111,6 +118,13 @@ export function validateAssignmentInput(
     return "Minimum word count must be between 50 and 500.";
   }
   if (
+    typeof data.minSynthesisWords !== "number" ||
+    data.minSynthesisWords < 50 ||
+    data.minSynthesisWords > 500
+  ) {
+    return "Minimum synthesis words must be between 50 and 500.";
+  }
+  if (
     typeof data.ai_msg_limit !== "number" ||
     data.ai_msg_limit < 5 ||
     data.ai_msg_limit > 50
@@ -120,33 +134,49 @@ export function validateAssignmentInput(
 }
 
 export function toAssignment(
-  row: Record<string, unknown> & { min_word_count?: number }
+  row: Record<string, unknown> & { min_word_count?: number; min_synthesis_words?: number }
 ): Assignment {
-  const { min_word_count, ...rest } = row;
+  const { min_word_count, min_synthesis_words, ...rest } = row;
   return {
-    ...(rest as Omit<Assignment, "minWordCount">),
+    ...(rest as Omit<Assignment, "minWordCount" | "minSynthesisWords">),
     minWordCount: min_word_count ?? 150,
+    minSynthesisWords: min_synthesis_words ?? 100,
   };
 }
 
 export function toAttempt(
-  row: Record<string, unknown> & { submitted_at?: string | null; instructor_flagged?: boolean | null }
+  row: Record<string, unknown> & {
+    submitted_at?: string | null;
+    instructor_flagged?: boolean | null;
+    ai_skipped?: boolean | null;
+    ai_user_msg_count?: number | null;
+  }
 ): Attempt {
-  const { submitted_at, instructor_flagged, ...rest } = row;
+  const { submitted_at, instructor_flagged, ai_skipped, ai_user_msg_count, ...rest } = row;
   return {
-    ...(rest as Omit<Attempt, "submittedAt" | "instructorFlagged">),
+    ...(rest as Omit<Attempt, "submittedAt" | "instructorFlagged" | "aiSkipped" | "aiUserMsgCount">),
     submittedAt: submitted_at ?? null,
     instructorFlagged: instructor_flagged ?? false,
+    aiSkipped: ai_skipped ?? false,
+    aiUserMsgCount: ai_user_msg_count ?? 0,
   };
 }
 
 export function toReflectionResponse(
-  row: Record<string, unknown> & { word_count?: number }
+  row: Record<string, unknown> & {
+    word_count?: number;
+    quality_pass?: boolean | null;
+    quality_feedback?: string | null;
+    quality_hash?: string | null;
+  }
 ): ReflectionResponse {
-  const { word_count, ...rest } = row;
+  const { word_count, quality_pass, quality_feedback, quality_hash, ...rest } = row;
   return {
-    ...(rest as Omit<ReflectionResponse, "wordCount">),
+    ...(rest as Omit<ReflectionResponse, "wordCount" | "qualityPass" | "qualityFeedback" | "qualityHash">),
     wordCount: word_count ?? 0,
+    qualityPass: quality_pass ?? null,
+    qualityFeedback: quality_feedback ?? null,
+    qualityHash: quality_hash ?? null,
   };
 }
 
@@ -200,14 +230,3 @@ export function isLowEffortAttempt(input: {
   };
 }
 
-export function gateUnlocked(
-  assignment: Pick<Assignment, "gate_level" | "minWordCount">,
-  totalWords: number,
-  status: AttemptStatus
-): boolean {
-  if (assignment.gate_level === "progressive") {
-    return status !== "reflect";
-  }
-
-  return totalWords >= assignment.minWordCount;
-}

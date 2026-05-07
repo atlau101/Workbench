@@ -29,6 +29,7 @@ export default function ReflectPhase({
   const [drafts, setDrafts] = useState<Record<string, string>>(initialResponses);
   const [saving, setSaving] = useState<Record<string, boolean>>({});
   const [error, setError] = useState<string | null>(null);
+  const [qualityFeedback, setQualityFeedback] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const mountedRef = useRef(false);
 
@@ -74,10 +75,15 @@ export default function ReflectPhase({
 
   function handleComplete() {
     setError(null);
+    setQualityFeedback(null);
     startTransition(async () => {
       const result = await passReflectionGate(attemptId);
       if (result.error) {
         setError(result.error);
+        return;
+      }
+      if (result.qualityFeedback) {
+        setQualityFeedback(result.qualityFeedback);
         return;
       }
       window.location.reload();
@@ -109,12 +115,13 @@ export default function ReflectPhase({
                 </label>
                 <textarea
                   value={drafts[prompt.id] ?? ""}
-                  onChange={(event) =>
+                  onChange={(event) => {
+                    setQualityFeedback(null);
                     setDrafts((current) => ({
                       ...current,
                       [prompt.id]: event.target.value,
-                    }))
-                  }
+                    }));
+                  }}
                   readOnly={Boolean(response?.frozen)}
                   rows={5}
                   className="min-h-[140px] w-full rounded-lg border border-[var(--color-outline-variant)] bg-[var(--color-surface-bright)] px-4 py-4 text-[16px] leading-7 text-[var(--color-on-surface)] outline-none transition-shadow focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20 read-only:cursor-not-allowed read-only:bg-[var(--color-surface-container-low)]"
@@ -134,15 +141,29 @@ export default function ReflectPhase({
           </p>
         ) : null}
 
-        <div className="mt-8 flex justify-end">
+        {qualityFeedback ? (
+          <div className="mt-6 rounded-lg border border-[var(--color-tertiary-container,#ffd8e4)] bg-[var(--color-tertiary-container,#ffd8e4)]/30 px-4 py-3 space-y-1">
+            <p className="text-sm font-medium text-[var(--color-on-surface)]">
+              Add a bit more before unlocking AI
+            </p>
+            <p className="text-sm text-[var(--color-on-surface-variant)]">{qualityFeedback}</p>
+          </div>
+        ) : null}
+
+        <div className="mt-8 flex items-center justify-between gap-4">
+          {isPending ? (
+            <p className="text-sm text-[var(--color-on-surface-variant)]">Reviewing your reflection…</p>
+          ) : (
+            <span />
+          )}
           <Button
             variant="motivational"
             size="lg"
             onClick={handleComplete}
             disabled={!thresholdMet || isPending}
           >
-            Complete Reflection
-            <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
+            {isPending ? "Checking…" : "Complete Reflection"}
+            {!isPending && <span className="material-symbols-outlined text-[20px]">arrow_forward</span>}
           </Button>
         </div>
       </SandboxArea>

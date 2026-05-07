@@ -43,6 +43,7 @@ export default function AIAssistPhase({
   const [error, setError] = useState<string | null>(null);
   const [isSending, setIsSending] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const [showSkipConfirm, setShowSkipConfirm] = useState(false);
 
   const userCount = useMemo(
     () => messages.filter((message) => message.role === "user").length,
@@ -126,7 +127,16 @@ export default function AIAssistPhase({
     }
   }
 
-  function handleContinue() {
+  function handleContinueClick() {
+    if (userCount === 0) {
+      setShowSkipConfirm(true);
+      return;
+    }
+    confirmContinue();
+  }
+
+  function confirmContinue() {
+    setShowSkipConfirm(false);
     setError(null);
     startTransition(async () => {
       const result = await goToSynthesize(attemptId);
@@ -283,13 +293,35 @@ export default function AIAssistPhase({
             <p className="text-sm text-[var(--color-on-surface-variant)]">
               Ready to write your final draft?
             </p>
-            <Button variant="motivational" size="lg" onClick={handleContinue} disabled={isPending}>
+            <Button variant="motivational" size="lg" onClick={handleContinueClick} disabled={isPending}>
               Continue to Synthesize
               <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
             </Button>
           </div>
         </div>
       </GuideArea>
+
+      {/* Skip confirmation modal */}
+      {showSkipConfirm ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="w-full max-w-sm rounded-2xl bg-[var(--color-surface)] p-6 shadow-xl space-y-4">
+            <h3 className="font-heading text-[18px] font-semibold text-[var(--color-on-surface)]">
+              Skip AI Assist?
+            </h3>
+            <p className="text-sm leading-6 text-[var(--color-on-surface-variant)]">
+              You haven&apos;t asked the AI anything yet. Thinking partners work best when you push back on your own ideas first.
+            </p>
+            <div className="flex gap-3 justify-end">
+              <Button variant="secondary" size="sm" onClick={() => setShowSkipConfirm(false)}>
+                Stay and explore
+              </Button>
+              <Button variant="primary" size="sm" onClick={confirmContinue} disabled={isPending}>
+                Continue anyway
+              </Button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

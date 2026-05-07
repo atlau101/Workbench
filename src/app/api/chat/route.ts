@@ -1,5 +1,5 @@
 import { createServerSupabaseClient } from "@/lib/supabase";
-import { anthropic, anthropicConfigured, CHAT_MODEL } from "@/lib/anthropic";
+import { anthropic, anthropicConfigured, CHAT_MODEL } from "@/lib/llm";
 import { toAssignment, toAttempt, toReflectionResponse } from "@/lib/assignments";
 import { BUDDY_PERSONA } from "@/lib/gym";
 

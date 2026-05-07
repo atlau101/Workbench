@@ -41,6 +41,7 @@ export async function createAssignment(
       prompt: input.prompt.trim(),
       gate_level: input.gate_level,
       min_word_count: input.minWordCount,
+      min_synthesis_words: input.minSynthesisWords,
       ai_msg_limit: input.ai_msg_limit,
       scaffolding_prompts: input.scaffolding_prompts,
       status: "draft",

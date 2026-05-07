@@ -47,6 +47,8 @@ export default async function StudentAssignmentWorkspacePage({
           attempt={bundle.attempt}
           assignment={bundle.assignment}
           finalOutput={bundle.finalOutput}
+          responses={bundle.responses}
+          chatMessages={bundle.chatMessages}
         />
       ) : null}
     </WorkspaceShell>
