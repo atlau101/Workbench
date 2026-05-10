@@ -16,20 +16,28 @@ function getErrorRedirect(path: "/login" | "/signup", message: string) {
 
 async function getAuthCallbackUrl() {
   const headerStore = await headers();
-  const origin = headerStore.get("origin");
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL?.trim();
 
-  if (origin) {
-    return `${origin}/auth/callback`;
+  if (appUrl) {
+    return `${appUrl.replace(/\/+$/, "")}/auth/callback`;
   }
 
-  const host = headerStore.get("x-forwarded-host") ?? headerStore.get("host");
-  const protocol = headerStore.get("x-forwarded-proto") ?? "http";
+  const host =
+    headerStore.get("x-forwarded-host")?.split(",")[0]?.trim() ??
+    headerStore.get("host")?.split(",")[0]?.trim();
 
   if (host) {
+    const protocol =
+      headerStore.get("x-forwarded-proto")?.split(",")[0]?.trim() ??
+      (process.env.NODE_ENV === "production" ? "https" : "http");
     return `${protocol}://${host}/auth/callback`;
   }
 
-  return `${process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"}/auth/callback`;
+  if (process.env.NODE_ENV !== "production") {
+    return "http://localhost:3000/auth/callback";
+  }
+
+  throw new Error("NEXT_PUBLIC_APP_URL must be set for production auth redirects.");
 }
 
 export async function signIn(formData: FormData) {
